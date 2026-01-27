@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Decide Fácil</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <button id="btnConfig">⚙</button>
+  <h1>Decide Fácil</h1>
+  <div>
+    <button id="btnPremium">Premium</button>
+    <button id="btnAds">Anuncios</button>
+  </div>
+</header>
+
+<div id="panelConfig" class="panel">
+  <h2>Configuración</h2>
+  <button class="close">Volver</button>
+</div>
+
+<div id="panelPremium" class="panel">
+  <h2>Premium</h2>
+  <ul>
+    <li>Sin anuncios</li>
+    <li>Mejor experiencia</li>
+  </ul>
+  <button class="close">Volver</button>
+</div>
+
+<div id="panelAds" class="panel">
+  <h2>Anuncios</h2>
+  <p>Aquí irán los anuncios</p>
+  <button class="close">Volver</button>
+</div>
+
+<main>
+  <div id="chat"></div>
+  <input id="input" placeholder="Escribe aquí">
+  <button id="send">Enviar</button>
+  <button id="decidir">DECIDIR</button>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
