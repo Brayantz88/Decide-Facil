@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  background: #1f2933;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #111827;
+}
+
+.top button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #374151;
+  color: white;
+}
+
+#btnPremium {
+  background: gold;
+  color: black;
+  font-weight: bold;
+}
+
+.panel {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+#chat {
+  width: 100%;
+  height: 200px;
+  background: #374151;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+#send, #decidir {
+  padding: 14px 30px;
+  border-radius: 16px;
+  border: none;
+  background: #22c55e;
+  font-weight: bold;
+  margin-top: 10px;
+}
