@@ -44,13 +44,21 @@ body {
   flex-direction: column;
   gap: 6px;
 }
-
 .premium-btn,
 .ads-btn {
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
   border: none;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  .premium-btn {
+  background: gold;
+  color: black;
+}
+
+.ads-btn {
+  background: #444;
+  color: white;
 }
 
 .premium-btn {
@@ -87,13 +95,13 @@ body {
   border: none;
   font-size: 16px;
 }
-
 .main-btn {
-  width: 85%;
-  padding: 15px;
-  font-size: 18px;
+  width: 90%;
+  max-width: 360px;
+  padding: 18px;
+  font-size: 20px;
   font-weight: bold;
-  border-radius: 12px;
+  border-radius: 16px;
   border: none;
   background: #2ecc71;
   color: black;
