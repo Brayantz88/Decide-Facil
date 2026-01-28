@@ -5,72 +5,66 @@
   <title>Decide Fácil</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <!-- BARRA SUPERIOR -->
-  <header class="top-bar">
-    <button id="btn-config" class="icon-btn">⚙️</button>
+<!-- BARRA SUPERIOR -->
+<header class="top-bar">
+  <button id="btn-config" class="icon-btn">⚙️</button>
 
-    <h1 class="title">Decide Fácil</h1>
+  <h1 class="title">Decide Fácil</h1>
 
-    <div class="right-buttons">
-      <button id="btn-premium" class="premium-btn">⭐ Premium</button>
-      <button id="btn-ads" class="ads-btn">📢 Anuncios</button>
-    </div>
-  </header>
+  <div class="right-buttons">
+    <button id="btn-premium" class="premium-btn">⭐ Premium</button>
+    <button id="btn-ads" class="ads-btn">📢 Anuncios</button>
+  </div>
+</header>
 
-  <!-- PANEL CONFIGURACIÓN -->
-  <section id="panel-config" class="panel hidden">
-    <h2>Configuración</h2>
-    <ul>
-      <li>Decisiones más rápidas</li>
-      <li>Mejor experiencia sin distracciones</li>
-      <li>Acceso a funciones Premium</li>
-    </ul>
-    <button class="back-btn">Volver</button>
-  </section>
+<!-- PANTALLA PRINCIPAL -->
+<main class="main-content">
 
-  <!-- PANEL PREMIUM -->
-  <section id="panel-premium" class="panel hidden">
-    <h2>Premium</h2>
-    <ul>
-      <li>✅ Sin anuncios</li>
-      <li>🤖 Acceso a IA</li>
-      <li>⚡ Mejor experiencia</li>
-      <li>🚀 Funciones exclusivas</li>
-    </ul>
-    <button class="back-btn">Volver</button>
-  </section>
-
-  <!-- PANEL ANUNCIOS -->
-  <section id="panel-ads" class="panel hidden">
-    <h2>Anuncios</h2>
-    <p>Aquí aparecerán los anuncios.</p>
-    <button class="back-btn">Volver</button>
-  </section>
-
-  <!-- CONTENIDO PRINCIPAL (NO SE TOCA AÚN) -->
-  
-    <!-- aquí luego van los botones grandes -->
-  <main class="container">
-
-  <div class="hero">
-    <h2>Escribe tus opciones</h2>
+  <div class="chat-box" id="chat">
+    <!-- Aquí aparecerá el texto -->
   </div>
 
-  <div class="input-box">
-    <textarea id="options" placeholder="Ejemplo:
-Pizza
-Hamburguesa
-Tacos"></textarea>
+  <input
+    type="text"
+    id="input"
+    placeholder="Escribe aquí tu duda..."
+  >
 
-    <button id="btn-decide">Decidir</button>
-  </div>
+  <button id="decidir" class="main-btn">
+    DECIDIR
+  </button>
 
-  <div id="result" class="result"></div>
+</main>
 
-  </main>
+<!-- PANEL CONFIGURACIÓN -->
+<section id="panel-config" class="panel hidden">
+  <h2>Configuración</h2>
+  <p>Ajustes básicos de la app.</p>
+  <button class="back-btn">Volver</button>
+</section>
 
-  <script src="app.js"></script>
+<!-- PANEL PREMIUM -->
+<section id="panel-premium" class="panel hidden">
+  <h2>Premium</h2>
+  <ul>
+    <li>✅ Sin anuncios</li>
+    <li>✅ Acceso a IA</li>
+    <li>✅ Mejor experiencia</li>
+    <li>✅ Funciones exclusivas</li>
+  </ul>
+  <button class="back-btn">Volver</button>
+</section>
+
+<!-- PANEL ANUNCIOS -->
+<section id="panel-ads" class="panel hidden">
+  <h2>Anuncios</h2>
+  <p>Aquí aparecerán los anuncios.</p>
+  <button class="back-btn">Volver</button>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>
