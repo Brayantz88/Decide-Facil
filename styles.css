@@ -29,10 +29,14 @@ body {
   font-size: 22px;
   color: white;
 }
-
 .title {
-  font-size: 26px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80px;
+  font-size: 40px;
   font-weight: bold;
+
 }
 
 .right-buttons {
