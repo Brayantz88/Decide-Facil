@@ -102,3 +102,42 @@ h1 {
 .panel h2 {
   text-align: center;
 }
+/* ===== MEJORA DE LAYOUT PRINCIPAL ===== */
+
+main {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* TÍTULO MÁS GRANDE Y MÁS ABAJO */
+.top h1 {
+  font-size: 32px;
+  position: relative;
+  top: 20px;
+}
+
+/* BOTONES PRINCIPALES JUNTOS */
+#send,
+#decidir {
+  width: 90%;
+  max-width: 320px;
+}
+
+/* CHAT ABAJO */
+#chat {
+  margin-top: 30px;
+  height: 260px;
+  width: 95%;
+  max-width: 360px;
+}
+
+/* INPUT MÁS CLARO */
+#input {
+  width: 95%;
+  max-width: 360px;
+  font-size: 16px;
+}
