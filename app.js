@@ -1,34 +1,23 @@
-const panels = {
-  btnConfig: "panelConfig",
-  btnPremium: "panelPremium",
-  btnAds: "panelAds"
+const panelConfig = document.getElementById("panel-config");
+const panelPremium = document.getElementById("panel-premium");
+const panelAds = document.getElementById("panel-ads");
+
+document.getElementById("btn-config").onclick = () => {
+  panelConfig.classList.remove("hidden");
 };
 
-Object.keys(panels).forEach(btn => {
-  document.getElementById(btn).onclick = () => {
-    closeAll();
-    document.getElementById(panels[btn]).style.display = "block";
+document.getElementById("btn-premium").onclick = () => {
+  panelPremium.classList.remove("hidden");
+};
+
+document.getElementById("btn-ads").onclick = () => {
+  panelAds.classList.remove("hidden");
+};
+
+document.querySelectorAll(".back-btn").forEach(btn => {
+  btn.onclick = () => {
+    panelConfig.classList.add("hidden");
+    panelPremium.classList.add("hidden");
+    panelAds.classList.add("hidden");
   };
 });
-
-function closeAll() {
-  document.querySelectorAll(".panel").forEach(p => p.style.display = "none");
-}
-
-document.querySelectorAll(".close").forEach(b => b.onclick = closeAll);
-
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-
-document.getElementById("send").onclick = () => {
-  if (input.value) {
-    chat.innerHTML += `<p>${input.value}</p>`;
-    input.value = "";
-    chat.scrollTop = chat.scrollHeight;
-  }
-};
-
-document.getElementById("decidir").onclick = () => {
-  const r = ["Sí", "No", "Tal vez"];
-  chat.innerHTML += `<p><b>${r[Math.floor(Math.random()*3)]}</b></p>`;
-};
