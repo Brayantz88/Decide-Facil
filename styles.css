@@ -1,4 +1,9 @@
+/* RESET DE EMERGENCIA */
 * {
+  box-sizing: border-box;
+  /* CIERRE FORZADO */
+}
+  *{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -37,7 +42,6 @@ body {
   top: 80px;
   font-size: 40px;
   font-weight: bold;
-
 }
 
 .right-buttons {
@@ -52,9 +56,16 @@ body {
   border: none;
   font-size: 15px;
   font-weight: 600;
-  .premium-btn {
+}
+
+.premium-btn {
   background: gold;
   color: black;
+}
+
+.ads-btn {
+  background: #444;
+  color: white;
 }
 
 .ads-btn {
@@ -136,4 +147,7 @@ body {
 /* OCULTO */
 .hidden {
   display: none;
+}
+body {
+  outline: 5px solid red;
 }
