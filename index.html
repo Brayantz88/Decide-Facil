@@ -7,42 +7,53 @@
 </head>
 <body>
 
-<header class="top">
-  <button id="btnConfig">⚙</button>
-  <h1>Decide Fácil</h1>
-  <div>
-    <button id="btnPremium">Premium</button>
-    <button id="btnAds">Anuncios</button>
-  </div>
-</header>
+  <!-- BARRA SUPERIOR -->
+  <header class="top-bar">
+    <button id="btn-config" class="icon-btn">⚙️</button>
 
-<div id="panelConfig" class="panel">
-  <h2>Configuración</h2>
-  <button class="close">Volver</button>
-</div>
+    <h1 class="title">Decide Fácil</h1>
 
-<div id="panelPremium" class="panel">
-  <h2>Premium</h2>
-  <ul>
-    <li>Sin anuncios</li>
-    <li>Mejor experiencia</li>
-  </ul>
-  <button class="close">Volver</button>
-</div>
+    <div class="right-buttons">
+      <button id="btn-premium" class="premium-btn">⭐ Premium</button>
+      <button id="btn-ads" class="ads-btn">📢 Anuncios</button>
+    </div>
+  </header>
 
-<div id="panelAds" class="panel">
-  <h2>Anuncios</h2>
-  <p>Aquí irán los anuncios</p>
-  <button class="close">Volver</button>
-</div>
+  <!-- PANEL CONFIGURACIÓN -->
+  <section id="panel-config" class="panel hidden">
+    <h2>Configuración</h2>
+    <ul>
+      <li>Decisiones más rápidas</li>
+      <li>Mejor experiencia sin distracciones</li>
+      <li>Acceso a funciones Premium</li>
+    </ul>
+    <button class="back-btn">Volver</button>
+  </section>
 
-<main>
-  <div id="chat"></div>
-  <input id="input" placeholder="Escribe aquí">
-  <button id="send">Enviar</button>
-  <button id="decidir">DECIDIR</button>
-</main>
+  <!-- PANEL PREMIUM -->
+  <section id="panel-premium" class="panel hidden">
+    <h2>Premium</h2>
+    <ul>
+      <li>✅ Sin anuncios</li>
+      <li>🤖 Acceso a IA</li>
+      <li>⚡ Mejor experiencia</li>
+      <li>🚀 Funciones exclusivas</li>
+    </ul>
+    <button class="back-btn">Volver</button>
+  </section>
 
-<script src="app.js"></script>
+  <!-- PANEL ANUNCIOS -->
+  <section id="panel-ads" class="panel hidden">
+    <h2>Anuncios</h2>
+    <p>Aquí aparecerán los anuncios.</p>
+    <button class="back-btn">Volver</button>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL (NO SE TOCA AÚN) -->
+  <main class="container">
+    <!-- aquí luego van los botones grandes -->
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
