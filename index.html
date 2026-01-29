@@ -2,69 +2,107 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Decide Fácil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DecideFácil</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- BARRA SUPERIOR -->
-<header class="top-bar">
-  <button id="btn-config" class="icon-btn">⚙️</button>
+  <!-- BARRA SUPERIOR -->
+  <header class="top-bar">
 
-  <h1 class="title">Decide Fácil</h1>
+    <!-- CONFIGURACIÓN -->
+    <button id="btn-config" class="icon-btn">
+      ⚙️
+    </button>
 
-  <div class="right-buttons">
-    <button id="btn-premium" class="premium-btn">⭐ Premium</button>
-    <button id="btn-ads" class="ads-btn">📢 Anuncios</button>
-  </div>
-</header>
+    <!-- TÍTULO -->
+    <h1 class="title">
+      DecideFácil
+    </h1>
 
-<!-- PANTALLA PRINCIPAL -->
-<main class="main-content">
+    <!-- BOTONES DERECHA -->
+    <div class="top-actions">
+      <button id="btn-premium" class="premium-btn">
+        Premium
+      </button>
 
-  <div class="chat-box" id="chat">
-    <!-- Aquí aparecerá el texto -->
-  </div>
+      <button id="btn-ads" class="ads-btn">
+        Anuncios
+      </button>
+    </div>
 
-  <input
-    type="text"
-    id="input"
-    placeholder="Escribe aquí tu duda..."
-  >
+  </header>
 
-  <button id="decidir" class="main-btn">
-    DECIDIR
-  </button>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
 
-</main>
+    <!-- CHAT -->
+    <div class="chat-box" id="chat">
+      <!-- Aquí aparecerán los mensajes -->
+    </div>
 
-<!-- PANEL CONFIGURACIÓN -->
-<section id="panel-config" class="panel hidden">
-  <h2>Configuración</h2>
-  <p>Ajustes básicos de la app.</p>
-  <button class="back-btn">Volver</button>
-</section>
+    <!-- INPUT + BOTÓN -->
+    <div class="input-area">
 
-<!-- PANEL PREMIUM -->
-<section id="panel-premium" class="panel hidden">
-  <h2>Premium</h2>
-  <ul>
-    <li>✅ Sin anuncios</li>
-    <li>✅ Acceso a IA</li>
-    <li>✅ Mejor experiencia</li>
-    <li>✅ Funciones exclusivas</li>
-  </ul>
-  <button class="back-btn">Volver</button>
-</section>
+      <input
+        type="text"
+        id="input"
+        placeholder="Escribe aquí tu duda..."
+        autocomplete="off"
+      >
 
-<!-- PANEL ANUNCIOS -->
-<section id="panel-ads" class="panel hidden">
-  <h2>Anuncios</h2>
-  <p>Aquí aparecerán los anuncios.</p>
-  <button class="back-btn">Volver</button>
-</section>
+      <button id="decidir" class="main-btn">
+        DECIDIR
+      </button>
 
-<script src="app.js"></script>
+    </div>
+
+  </main>
+
+  <!-- PANEL CONFIGURACIÓN -->
+  <section id="panel-config" class="panel hidden">
+    <h2>Configuración</h2>
+
+    <p>Aquí irán las opciones de la app.</p>
+
+    <button class="back-btn">
+      Volver
+    </button>
+  </section>
+
+  <!-- PANEL PREMIUM -->
+  <section id="panel-premium" class="panel hidden">
+    <h2>Premium</h2>
+
+    <ul>
+      <li>✔ Sin anuncios</li>
+      <li>✔ Respuestas más rápidas</li>
+      <li>✔ Acceso total a los botones</li>
+    </ul>
+
+    <button class="back-btn">
+      Volver
+    </button>
+  </section>
+
+  <!-- PANEL ANUNCIOS -->
+  <section id="panel-ads" class="panel hidden">
+    <h2>Anuncios</h2>
+
+    <p>Aquí se mostrarán los anuncios.</p>
+
+    <button class="back-btn">
+      Volver
+    </button>
+  </section>
+
+  <!-- JS -->
+  <script src="app.js"></script>
+
 </body>
 </html>
