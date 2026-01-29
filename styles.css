@@ -35,13 +35,15 @@ body {
   font-size: 22px;
   color: white;
 }
+
 .title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 80px;
-  font-size: 40px;
-  font-weight: bold;
+  top: 90px;
+  font-size: 44px;      /* 🔥 GRANDE */
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 .right-buttons {
@@ -85,11 +87,13 @@ body {
 
 /* CONTENIDO PRINCIPAL */
 .main-content {
-  margin-top: 100px;
+  margin-top: 220px;
+  min-height: calc(100vh - 220px);
   display: flex;
   flex-direction: column;
+  justify-content: center;   /* 👈 CLAVE */
   align-items: center;
-  gap: 15px;
+  gap: 22px;
 }
 
 .chat-box {
