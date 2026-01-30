@@ -37,12 +37,16 @@ body {
 }
 
 .title {
-  position: relative;
-  margin-top: 90px;
-  text-align: center;
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 48px;
   font-weight: 900;
   letter-spacing: 1px;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .right-buttons {
