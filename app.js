@@ -1,42 +1,41 @@
-// PANELES
-const panelConfig = document.getElementById("panel-config");
-const panelPremium = document.getElementById("panel-premium");
-const panelAds = document.getElementById("panel-ads");
+const configBtn = document.getElementById("configBtn");
+const premiumBtn = document.getElementById("premiumBtn");
+const adsBtn = document.getElementById("adsBtn");
 
-// BOTONES SUPERIORES
-document.getElementById("btn-config").onclick = () => {
-  panelConfig.classList.remove("hidden");
-};
+const panelConfig = document.getElementById("panelConfig");
+const panelPremium = document.getElementById("panelPremium");
+const panelAds = document.getElementById("panelAds");
 
-document.getElementById("btn-premium").onclick = () => {
-  panelPremium.classList.remove("hidden");
-};
+const backBtns = document.querySelectorAll(".back-btn");
 
-document.getElementById("btn-ads").onclick = () => {
-  panelAds.classList.remove("hidden");
-};
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("sendBtn");
+const chat = document.getElementById("chat");
 
-// BOTONES VOLVER
-document.querySelectorAll(".back-btn").forEach(btn => {
-  btn.onclick = () => {
-    panelConfig.classList.add("hidden");
-    panelPremium.classList.add("hidden");
-    panelAds.classList.add("hidden");
-  };
+function openPanel(panel) {
+  panel.classList.remove("hidden");
+}
+
+function closePanels() {
+  panelConfig.classList.add("hidden");
+  panelPremium.classList.add("hidden");
+  panelAds.classList.add("hidden");
+}
+
+configBtn.onclick = () => openPanel(panelConfig);
+premiumBtn.onclick = () => openPanel(panelPremium);
+adsBtn.onclick = () => openPanel(panelAds);
+
+backBtns.forEach(btn => {
+  btn.onclick = closePanels;
 });
 
-// CHAT / ENVIAR
-const input = document.getElementById("input");
-const chat = document.getElementById("chat");
-const decidirBtn = document.getElementById("decidir");
-
-decidirBtn.onclick = () => {
+sendBtn.onclick = () => {
   if (input.value.trim() === "") return;
 
   const msg = document.createElement("div");
   msg.textContent = input.value;
-  msg.style.padding = "8px";
-  msg.style.marginBottom = "6px";
+  msg.style.marginBottom = "8px";
 
   chat.appendChild(msg);
   input.value = "";
