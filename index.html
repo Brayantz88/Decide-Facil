@@ -1,108 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DecideFácil</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
   <!-- BARRA SUPERIOR -->
   <header class="top-bar">
+    <button class="icon-btn" id="configBtn">⚙️</button>
 
-    <!-- CONFIGURACIÓN -->
-    <button id="btn-config" class="icon-btn">
-      ⚙️
-    </button>
-
-    <!-- TÍTULO -->
-    <h1 class="title">
-      DecideFácil
-    </h1>
-
-    <!-- BOTONES DERECHA -->
-    <div class="top-actions">
-      <button id="btn-premium" class="premium-btn">
-        Premium
-      </button>
-
-      <button id="btn-ads" class="ads-btn">
-        Anuncios
-      </button>
+    <div class="right-buttons">
+      <button class="premium-btn" id="premiumBtn">Premium</button>
+      <button class="ads-btn" id="adsBtn">Anuncios</button>
     </div>
-
   </header>
+
+  <!-- TÍTULO -->
+  <h1 class="title">DecideFácil</h1>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-    <!-- CHAT -->
-    <div class="chat-box" id="chat">
-      <!-- Aquí aparecerán los mensajes -->
+    <!-- BOTONES PRINCIPALES -->
+    <div class="main-buttons">
+      <button class="main-btn" id="decidirBtn">DECIDE POR MÍ</button>
+      <button class="main-btn secondary" id="preguntarBtn">PREGUNTA A LA IA</button>
     </div>
 
-    <!-- INPUT + BOTÓN -->
-    <div class="input-area">
+    <!-- CHAT -->
+    <div class="chat-box" id="chat"></div>
 
+    <!-- INPUT -->
+    <div class="input-area">
       <input
         type="text"
         id="input"
         placeholder="Escribe aquí tu duda..."
-        autocomplete="off"
-      >
-
-      <button id="decidir" class="main-btn">
-        DECIDIR
-      </button>
-
+      />
+      <button class="send-btn" id="sendBtn">Enviar</button>
     </div>
 
   </main>
 
   <!-- PANEL CONFIGURACIÓN -->
-  <section id="panel-config" class="panel hidden">
+  <section class="panel hidden" id="panelConfig">
     <h2>Configuración</h2>
-
-    <p>Aquí irán las opciones de la app.</p>
-
-    <button class="back-btn">
-      Volver
-    </button>
+    <p>Aquí irán ajustes futuros.</p>
+    <button class="back-btn">Volver</button>
   </section>
 
   <!-- PANEL PREMIUM -->
-  <section id="panel-premium" class="panel hidden">
+  <section class="panel hidden" id="panelPremium">
     <h2>Premium</h2>
-
     <ul>
-      <li>✔ Sin anuncios</li>
-      <li>✔ Respuestas más rápidas</li>
-      <li>✔ Acceso total a los botones</li>
+      <li>Sin anuncios</li>
+      <li>Respuestas más largas</li>
+      <li>Prioridad de IA</li>
     </ul>
-
-    <button class="back-btn">
-      Volver
-    </button>
+    <button class="back-btn">Volver</button>
   </section>
 
   <!-- PANEL ANUNCIOS -->
-  <section id="panel-ads" class="panel hidden">
+  <section class="panel hidden" id="panelAds">
     <h2>Anuncios</h2>
-
-    <p>Aquí se mostrarán los anuncios.</p>
-
-    <button class="back-btn">
-      Volver
-    </button>
+    <p>Los anuncios ayudan a mantener DecideFácil gratis.</p>
+    <button class="back-btn">Volver</button>
   </section>
 
-  <!-- JS -->
   <script src="app.js"></script>
-
 </body>
 </html>
