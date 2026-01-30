@@ -17,16 +17,18 @@ body {
 }
 
 /* BARRA SUPERIOR */
-.top-bar {
-  position: relative;;
+}.top-bar {
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
-  z-index: 5;
+  z-index: 20;
+  background: transparent;
 }
 
 .icon-btn {
@@ -90,11 +92,11 @@ body {
 
 /* CONTENIDO PRINCIPAL */
 .main-content {
-  margin-top: 220px;
-  min-height: calc(100vh - 220px);
+  padding-top: 140px;
+  min-height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
-  justify-content: center;   /* 👈 CLAVE */
+  justify-content: center;
   align-items: center;
   gap: 22px;
 }
