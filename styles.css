@@ -7,10 +7,9 @@
 }
 
 body {
-  background: #0f1115;
-  color: #ffffff;
-  min-height: 100vh;
-}
+  background: black !important;
+  color: lime !important;
+  }
 
 /* BARRA SUPERIOR */
 .top-bar {
