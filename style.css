@@ -1,4 +1,6 @@
-/* RESET */
+/* =========================
+   RESET GENERAL
+========================= */
 * {
   margin: 0;
   padding: 0;
@@ -7,154 +9,208 @@
 }
 
 body {
-  background: black !important;
-  color: white !important;
-  }
-
-/* BARRA SUPERIOR */
-.top-bar {
-  position: sticky;
-  top: 0;
-  height: 60px;
-  background: #161a22;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 14px;
-  z-index: 10;
+  background: #0b0b0b;
+  color: #ffffff;
+  min-height: 100vh;
 }
 
-.icon-btn {
-  background: none;
+/* =========================
+   BARRA SUPERIOR
+========================= */
+.top-buttons {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 100;
+}
+
+.config-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   border: none;
-  font-size: 22px;
+  background: #222;
   color: white;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .right-buttons {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-}
-
-.premium-btn,
-.ads-btn {
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 .premium-btn {
   background: gold;
   color: black;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .ads-btn {
-  background: #333;
+  background: #444;
   color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
-/* TÍTULO */
+/* =========================
+   TITULO
+========================= */
 .title {
-  position: relative;
-  margin-top: 25px;
-  text-align: center;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 48px;
   font-weight: 900;
   letter-spacing: 1px;
+  text-align: center;
+  z-index: 90;
+  pointer-events: none;
 }
 
-/* CONTENIDO PRINCIPAL */
+/* =========================
+   CONTENIDO PRINCIPAL
+========================= */
 .main-content {
-  padding-top: 20px;
-  min-height: calc(100vh - 60px);
+  margin-top: 180px;
+  min-height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 22px;
+  padding-bottom: 120px;
 }
 
-/* BOTONES PRINCIPALES */
+/* =========================
+   BOTONES PRINCIPALES
+========================= */
 .main-buttons {
   display: flex;
+  flex-direction: column;
   gap: 18px;
+  width: 100%;
+  align-items: center;
 }
 
 .main-btn {
-  padding: 16px 26px;
+  width: 90%;
+  max-width: 380px;
+  padding: 18px;
   font-size: 18px;
-  font-weight: bold;
-  border-radius: 14px;
+  font-weight: 700;
+  border-radius: 16px;
   border: none;
-  background: #2563eb;
+  background: #1f1f1f;
   color: white;
+  cursor: pointer;
 }
 
-.main-btn.secondary {
-  background: #374151;
+.main-btn:hover {
+  background: #2a2a2a;
 }
 
-/* CHAT */
+/* =========================
+   CHAT
+========================= */
 .chat-box {
-  width: 90%;
+  width: 100%;
   max-width: 600px;
-  min-height: 200px;
-  background: #161a22;
-  border-radius: 14px;
-  padding: 12px;
-  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* INPUT */
+.message {
+  padding: 14px 16px;
+  border-radius: 14px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: #2563eb;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background: #333;
+}
+
+/* =========================
+   INPUT ABAJO
+========================= */
 .input-area {
-  width: 90%;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
   max-width: 600px;
   display: flex;
   gap: 10px;
+  z-index: 100;
 }
 
 .input-area input {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
+  font-size: 16px;
 }
 
-.send-btn {
-  padding: 12px 18px;
-  border-radius: 10px;
+.input-area button {
+  padding: 14px 18px;
+  border-radius: 14px;
   border: none;
-  background: #22c55e;
-  color: black;
-  font-weight: bold;
+  font-weight: 700;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
 }
 
-/* PANELES */
+/* =========================
+   PANELES (PREMIUM / ADS / CONFIG)
+========================= */
 .panel {
   position: fixed;
   inset: 0;
-  background: #0f1115;
-  padding: 30px;
-  z-index: 20;
+  background: #0b0b0b;
+  color: white;
+  padding: 30px 20px;
+  z-index: 200;
+}
+
+.panel.hidden {
+  display: none;
 }
 
 .panel h2 {
-  margin-bottom: 14px;
-}
-
-.panel ul {
   margin-bottom: 20px;
 }
 
-.back-btn {
-  padding: 12px 20px;
-  border-radius: 10px;
+.panel button {
+  margin-top: 20px;
+  padding: 14px 20px;
+  border-radius: 14px;
   border: none;
   background: #2563eb;
   color: white;
-}
-
-.hidden {
-  display: none;
+  font-weight: 700;
 }
