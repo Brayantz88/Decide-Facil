@@ -1,60 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DecideFácil</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-  
+
 <body>
 
-  <!-- BARRA SUPERIOR -->
-  <header class="top-bar">
-    <button class="icon-btn" id="configBtn">⚙️</button>
-
-    <div class="right-buttons">
-      <button class="premium-btn" id="premiumBtn">Premium</button>
-      <button class="ads-btn" id="adsBtn">Anuncios</button>
-    </div>
-  </header>
-
-  <!-- TÍTULO -->
+  <!-- TÍTULO FIJO -->
   <h1 class="title">DecideFácil</h1>
+
+  <!-- BOTONES SUPERIORES -->
+  <div class="top-buttons">
+    <button class="premium-btn">Premium</button>
+    <button class="ads-btn">Anuncios</button>
+    <button class="config-btn">⚙</button>
+  </div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-    <!-- BOTONES PRINCIPALES -->
-    <div class="main-buttons">
-      <button class="main-btn" id="decidirBtn">DECIDE POR MÍ</button>
-      <button class="main-btn secondary" id="preguntarBtn">PREGUNTA A LA IA</button>
+    <!-- CHAT -->
+    <div class="chat-box" id="chat">
+      <!-- Mensajes aquí -->
     </div>
 
-    <!-- CHAT -->
-    <div class="chat-box" id="chat"></div>
-
-    <!-- INPUT -->
+    <!-- ENTRADA -->
     <div class="input-area">
-      <input
-        type="text"
-        id="input"
+      <input 
+        type="text" 
+        id="input" 
         placeholder="Escribe aquí tu duda..."
-      />
-      <button class="send-btn" id="sendBtn">Enviar</button>
+      >
+      <button id="decidir" class="main-btn">
+        DECIDIR
+      </button>
+    </div>
+
+    <!-- BOTONES PRINCIPALES -->
+    <div class="main-actions">
+      <button class="action-btn">DECIDE POR MÍ</button>
+      <button class="action-btn">PREGUNTA A LA IA</button>
     </div>
 
   </main>
 
-  <!-- PANEL CONFIGURACIÓN -->
-  <section class="panel hidden" id="panelConfig">
-    <h2>Configuración</h2>
-    <p>Aquí irán ajustes futuros.</p>
-    <button class="back-btn">Volver</button>
-  </section>
-
   <!-- PANEL PREMIUM -->
-  <section class="panel hidden" id="panelPremium">
+  <section class="panel hidden" id="panel-premium">
     <h2>Premium</h2>
     <ul>
       <li>Sin anuncios</li>
@@ -65,12 +61,14 @@
   </section>
 
   <!-- PANEL ANUNCIOS -->
-  <section class="panel hidden" id="panelAds">
+  <section class="panel hidden" id="panel-ads">
     <h2>Anuncios</h2>
     <p>Los anuncios ayudan a mantener DecideFácil gratis.</p>
     <button class="back-btn">Volver</button>
   </section>
 
+  <!-- JS -->
   <script src="app.js"></script>
+
 </body>
 </html>
