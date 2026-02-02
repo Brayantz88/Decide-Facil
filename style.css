@@ -217,3 +217,26 @@ body {
 #decidir {
   display: none;
 }
+/* BOTONES PRINCIPALES GRANDES Y CENTRADOS */
+button {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.main-content button {
+  width: 260px;
+  padding: 22px 0;
+  border-radius: 20px;
+}
+
+/* CONTENEDOR CENTRAL */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* SEPARACIÓN ENTRE LOS DOS BOTONES */
+.main-content button + button {
+  margin-top: 28px;
+}
