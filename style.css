@@ -100,24 +100,24 @@ body {
 ========================= */
 .main-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
+  flex-direction: column;   /* uno arriba del otro */
   align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 140px;
 }
 
+
 .main-btn {
-  width: 90%;
-  max-width: 380px;
-  padding: 18px;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 16px;
+  width: 260px;
+  padding: 22px 0;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 20px;
   border: none;
-  background: #1f1f1f;
-  color: white;
   cursor: pointer;
 }
+  
 
 .main-btn:hover {
   background: #2a2a2a;
