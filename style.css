@@ -70,7 +70,7 @@ body {
 ========================= */
 .title {
   position: fixed;
-  top: 90px;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 48px;
@@ -239,4 +239,8 @@ button {
 /* SEPARACIÓN ENTRE LOS DOS BOTONES */
 .main-content button + button {
   margin-top: 28px;
+}
+/* Mover botones principales un poco a la derecha */
+.main-content button {
+  transform: translateX(12px);
 }
