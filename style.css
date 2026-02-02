@@ -162,7 +162,7 @@ body {
   transform: translateX(-50%);
   width: 92%;
   max-width: 600px;
-  display: flex;
+  display: none;
   gap: 10px;
   z-index: 100;
 }
