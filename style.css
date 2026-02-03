@@ -24,19 +24,12 @@ body {
   width: 100%;
   padding: 0 40px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   z-index: 100;
 }
+
 .config-btn {
   margin-right: auto;
-}
-
-.right-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.config-btn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
