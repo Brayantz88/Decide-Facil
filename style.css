@@ -259,3 +259,6 @@ html, body {
 .main-buttons {
   transform: translateX(25px);
 }
+.top-buttons {
+  border: 2px solid red;
+}
