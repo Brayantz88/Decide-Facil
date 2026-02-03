@@ -248,3 +248,7 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+/* Mover botones principales un poco a la derecha */
+.main-buttons {
+  transform: translateX(20px);
+}
