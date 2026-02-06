@@ -1,150 +1,120 @@
-// ================================
-// DecideFácil - app.js
-// ================================
+// ===============================
+// DecideFácil - app.js completo
+// ===============================
 
-// Botones superiores
+// BOTONES
 const premiumBtn = document.getElementById("premiumBtn");
 const adsBtn = document.getElementById("adsBtn");
 const configBtn = document.getElementById("configBtn");
 
-// Paneles
+const btnDecidir = document.getElementById("btnDecidir");
+const btnPregunta = document.getElementById("btnPregunta");
+const decidirBtn = document.getElementById("decidir");
+
+// INPUT Y CHAT
+const input = document.getElementById("input");
+const chat = document.getElementById("chat");
+
+// PANELES
 const panelPremium = document.getElementById("panel-premium");
 const panelAds = document.getElementById("panel-ads");
 const panelConfig = document.getElementById("panel-config");
 
-// Botones principales
-const btnDecidir = document.getElementById("btnDecidir");
-const btnPregunta = document.getElementById("btnPregunta");
+// BOTONES VOLVER (hay 3)
+const backBtns = document.querySelectorAll(".back-btn");
 
-// Chat
-const chatBox = document.getElementById("chat");
-const input = document.getElementById("input");
-const decidirBtn = document.getElementById("decidir");
-
-// ================================
-// FUNCIONES
-// ================================
-
-// Cierra todos los paneles
-function closeAllPanels() {
+// ===============================
+// FUNCIONES DE PANELES
+// ===============================
+function cerrarPanels() {
   panelPremium.classList.add("hidden");
   panelAds.classList.add("hidden");
   panelConfig.classList.add("hidden");
 }
 
-// Abre un panel
-function openPanel(panel) {
-  closeAllPanels();
+function abrirPanel(panel) {
+  cerrarPanels();
   panel.classList.remove("hidden");
 }
 
-// Agregar mensaje al chat
-function addMessage(text, type = "bot") {
-  const msg = document.createElement("div");
-  msg.className = `msg ${type}`;
-  msg.textContent = text;
-  chatBox.appendChild(msg);
+// ===============================
+// EVENTOS BOTONES SUPERIORES
+// ===============================
+premiumBtn.addEventListener("click", () => abrirPanel(panelPremium));
+adsBtn.addEventListener("click", () => abrirPanel(panelAds));
+configBtn.addEventListener("click", () => abrirPanel(panelConfig));
 
-  // Baja automático
-  chatBox.scrollTop = chatBox.scrollHeight;
+// Volver (para los 3)
+backBtns.forEach((btn) => {
+  btn.addEventListener("click", () => cerrarPanels());
+});
+
+// ===============================
+// FUNCIONES DE MENSAJES
+// ===============================
+function agregarMensaje(texto, tipo = "bot") {
+  const msg = document.createElement("div");
+  msg.classList.add("msg");
+
+  if (tipo === "user") {
+    msg.classList.add("user-msg");
+  } else {
+    msg.classList.add("bot-msg");
+  }
+
+  msg.textContent = texto;
+  chat.appendChild(msg);
+
+  // auto scroll al final
+  chat.scrollTop = chat.scrollHeight;
 }
 
-// ================================
-// EVENTOS - BOTONES SUPERIORES
-// ================================
-
-premiumBtn.addEventListener("click", () => {
-  openPanel(panelPremium);
-});
-
-adsBtn.addEventListener("click", () => {
-  openPanel(panelAds);
-});
-
-configBtn.addEventListener("click", () => {
-  openPanel(panelConfig);
-});
-
-// ================================
-// BOTONES "VOLVER"
-// ================================
-
-document.querySelectorAll(".back-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    closeAllPanels();
-  });
-});
-
-// ================================
-// BOTÓN: DECIDE POR MÍ
-// ================================
-
-const respuestas = [
-  "Sí 😎",
-  "No 😅",
-  "Tal vez 🤔",
-  "Mejor mañana 🔥",
-  "Hazlo de una 💪",
-  "No lo hagas 🚫",
-  "Es buena idea ✅",
-  "No conviene ahora ❌",
-  "Dale sin miedo 😏",
-  "Pensalo un poco más 🧠"
-];
-
+// ===============================
+// DECIDE POR MÍ
+// ===============================
 btnDecidir.addEventListener("click", () => {
-  closeAllPanels();
-
-  // Muestra chat por si estaba oculto
-  chatBox.style.display = "block";
-
-  addMessage("Elegí por vos 👇", "bot");
-  addMessage(respuestas[Math.floor(Math.random() * respuestas.length)], "bot");
-});
-
-// ================================
-// BOTÓN: PREGUNTA A LA IA
-// ================================
-
-btnPregunta.addEventListener("click", () => {
-  closeAllPanels();
-
-  chatBox.style.display = "block";
-
-  // Activar input y botón decidir
-  document.querySelector(".input-area").style.display = "flex";
-  decidirBtn.style.display = "inline-block";
-
-  addMessage("Modo IA activado 😎 Preguntame lo que quieras.", "bot");
-});
-
-// ================================
-// BOTÓN DECIDIR (del input)
-// ================================
-
-decidirBtn.addEventListener("click", () => {
-  const text = input.value.trim();
-  if (!text) return;
-
-  addMessage(text, "user");
-  input.value = "";
-
-  // Respuesta simple tipo IA
-  const respuestasIA = [
-    "Buena pregunta 😎",
-    "Te recomiendo que sí 🔥",
-    "Yo digo que no conviene por ahora 🤔",
-    "Depende, pero si querés te doy una respuesta más exacta.",
-    "Dame 2 opciones y elijo por vos 💪"
+  const respuestas = [
+    "Elegí por vos 👇",
+    "Mejor mañana 🔥",
+    "Hoy no conviene 😌",
+    "Dale, hacelo 😎",
+    "Pensalo un poco más 🧠",
+    "Sí, de una 💯",
+    "No por ahora 🤔"
   ];
 
-  setTimeout(() => {
-    addMessage(respuestasIA[Math.floor(Math.random() * respuestasIA.length)], "bot");
-  }, 500);
+  const random = respuestas[Math.floor(Math.random() * respuestas.length)];
+
+  agregarMensaje(random, "bot");
 });
 
-// Enter para enviar
-input.addEventListener("keydown", (e) => {
+// ===============================
+// PREGUNTA A LA IA (modo simple)
+// ===============================
+btnPregunta.addEventListener("click", () => {
+  agregarMensaje("Modo IA activado 😎 Preguntame lo que quieras.", "bot");
+});
+
+// ===============================
+// BOTÓN DECIDIR (ENVÍA TEXTO)
+// ===============================
+decidirBtn.addEventListener("click", () => {
+  const texto = input.value.trim();
+
+  if (texto === "") return;
+
+  agregarMensaje(texto, "user");
+
+  // Respuesta automática simple
+  setTimeout(() => {
+    agregarMensaje("Entendido 😎. Estoy pensando...", "bot");
+  }, 400);
+
+  input.value = "";
+});
+
+// ENTER PARA ENVIAR
+input.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     decidirBtn.click();
   }
