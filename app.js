@@ -1,42 +1,41 @@
-const configBtn = document.getElementById("configBtn");
-const premiumBtn = document.getElementById("premiumBtn");
-const adsBtn = document.getElementById("adsBtn");
+// ====== ELEMENTOS ======
+const premiumBtn = document.getElementById("premium-btn");
+const adsBtn = document.getElementById("ads-btn");
+const configBtn = document.getElementById("config-btn");
 
-const panelConfig = document.getElementById("panelConfig");
-const panelPremium = document.getElementById("panelPremium");
-const panelAds = document.getElementById("panelAds");
+const panelPremium = document.getElementById("panel-premium");
+const panelAds = document.getElementById("panel-ads");
+const panelConfig = document.getElementById("panel-config");
 
 const backBtns = document.querySelectorAll(".back-btn");
 
-const input = document.getElementById("input");
-const sendBtn = document.getElementById("sendBtn");
-const chat = document.getElementById("chat");
+// ====== FUNCIONES ======
+function hideAllPanels() {
+  panelPremium.classList.add("hidden");
+  panelAds.classList.add("hidden");
+  panelConfig.classList.add("hidden");
+}
 
-function openPanel(panel) {
+function showPanel(panel) {
+  hideAllPanels();
   panel.classList.remove("hidden");
 }
 
-function closePanels() {
-  panelConfig.classList.add("hidden");
-  panelPremium.classList.add("hidden");
-  panelAds.classList.add("hidden");
-}
-
-configBtn.onclick = () => openPanel(panelConfig);
-premiumBtn.onclick = () => openPanel(panelPremium);
-adsBtn.onclick = () => openPanel(panelAds);
-
-backBtns.forEach(btn => {
-  btn.onclick = closePanels;
+// ====== EVENTOS ======
+premiumBtn.addEventListener("click", () => {
+  showPanel(panelPremium);
 });
 
-sendBtn.onclick = () => {
-  if (input.value.trim() === "") return;
+adsBtn.addEventListener("click", () => {
+  showPanel(panelAds);
+});
 
-  const msg = document.createElement("div");
-  msg.textContent = input.value;
-  msg.style.marginBottom = "8px";
+configBtn.addEventListener("click", () => {
+  showPanel(panelConfig);
+});
 
-  chat.appendChild(msg);
-  input.value = "";
-};
+backBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    hideAllPanels();
+  });
+});
