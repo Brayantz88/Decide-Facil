@@ -25,30 +25,35 @@
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
-  <main class="main-content">
+<main class="main-content">
+
+  <!-- PANTALLA INICIO -->
+  <section id="screen-home">
+
+    <!-- BOTONES PRINCIPALES -->
+    <div class="main-actions">
+      <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
+      <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
+    </div>
+
+  </section>
+
+  <!-- PANTALLA CHAT -->
+  <section id="screen-chat" class="hidden">
+
+    <button id="btnBack" class="back-chat">⬅ Volver</button>
 
     <!-- CHAT -->
-    <div class="chat-box" id="chat">
-      <!-- Mensajes aquí -->
-    </div>
+    <div class="chat-box" id="chat"></div>
 
     <!-- ENTRADA -->
     <div class="input-area">
-      <input 
-        type="text" 
-        id="input" 
-      >
-      <button id="decidir" class="main-btn">
-        DECIDIR
-      </button>
+      <input type="text" id="input">
+      <button id="decidir" class="main-btn">ENVIAR</button>
     </div>
 
-    <!-- BOTONES PRINCIPALES -->
-  <div class="main-actions">
-  <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
-  <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
-  </div>
-
+  </section>
+  
   </main>
 
   <!-- PANEL PREMIUM -->
