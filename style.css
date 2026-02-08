@@ -177,7 +177,7 @@ body {
   transform: translateX(-50%);
   width: 92%;
   max-width: 600px;
-  display: none; /* oculto al inicio */
+  display: flex;
   gap: 10px;
   z-index: 100;
 }
@@ -234,5 +234,8 @@ body {
    BOTÓN DECIDIR ABAJO (OCULTO)
 ========================= */
 #decidir {
-  display: none;
+  display:inline-block;
+}
+.hidden {
+  display: none !important;
 }
