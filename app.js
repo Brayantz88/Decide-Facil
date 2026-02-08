@@ -1,177 +1,169 @@
-// ===============================
-// DecideFácil - app.js (para tu CSS)
-// ===============================
-
-// PANTALLAS
+// =========================
+// ELEMENTOS
+// =========================
 const screenHome = document.getElementById("screen-home");
 const screenChat = document.getElementById("screen-chat");
 
-// BOTONES PRINCIPALES
 const btnDecidir = document.getElementById("btnDecidir");
 const btnPregunta = document.getElementById("btnPregunta");
 const btnBack = document.getElementById("btnBack");
 
-// CHAT + INPUT
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const btnEnviar = document.getElementById("decidir");
-const inputArea = document.querySelector(".input-area");
 
-// BOTONES ARRIBA
+// Botones de arriba
 const premiumBtn = document.getElementById("premiumBtn");
 const adsBtn = document.getElementById("adsBtn");
 const configBtn = document.getElementById("configBtn");
 
-// PANELES
+// Paneles
 const panelPremium = document.getElementById("panel-premium");
 const panelAds = document.getElementById("panel-ads");
 const panelConfig = document.getElementById("panel-config");
 
-// BOTONES VOLVER DE PANELES
+// Botones volver de paneles
 const backBtns = document.querySelectorAll(".back-btn");
 
-// MODO
-let modo = "";
+// =========================
+// VARIABLES
+// =========================
+let mode = ""; // "decidir" o "pregunta"
 
-// ===============================
-// FUNCIONES DE PANTALLAS
-// ===============================
-function mostrarHome() {
-  screenHome.classList.remove("hidden");
-  screenChat.classList.add("hidden");
+// =========================
+// FUNCIONES
+// =========================
+function openChat(selectedMode) {
+  mode = selectedMode;
 
-  // ocultar input abajo
-  inputArea.style.display = "none";
-}
-
-function mostrarChat() {
+  // Ocultar HOME y mostrar CHAT
   screenHome.classList.add("hidden");
   screenChat.classList.remove("hidden");
 
-  // mostrar input abajo
-  inputArea.style.display = "flex";
-}
+  // Limpiar chat al entrar (opcional)
+  chat.innerHTML = "";
 
-// ===============================
-// CHAT
-// ===============================
-function agregarMensaje(texto, quien = "ai") {
-  const msg = document.createElement("div");
-
-  // TU CSS usa .message
-  msg.classList.add("message");
-
-  if (quien === "user") {
-    msg.classList.add("user");
+  // Mensaje inicial según modo
+  if (mode === "decidir") {
+    addAIMessage("🔥 Modo DECIDIR activado. Escribí tus opciones (ej: Pizza o Pollo).");
   } else {
-    msg.classList.add("ai");
+    addAIMessage("😎 Modo IA activado. Preguntame lo que quieras.");
   }
 
-  msg.textContent = texto;
-  chat.appendChild(msg);
+  // Enfocar input
+  setTimeout(() => input.focus(), 200);
+}
 
-  // bajar scroll
+function goHome() {
+  // Ocultar CHAT y mostrar HOME
+  screenChat.classList.add("hidden");
+  screenHome.classList.remove("hidden");
+}
+
+function addUserMessage(text) {
+  const div = document.createElement("div");
+  div.className = "message user";
+  div.textContent = text;
+  chat.appendChild(div);
+  scrollChat();
+}
+
+function addAIMessage(text) {
+  const div = document.createElement("div");
+  div.className = "message ai";
+  div.textContent = text;
+  chat.appendChild(div);
+  scrollChat();
+}
+
+function scrollChat() {
   chat.scrollTop = chat.scrollHeight;
 }
 
-function limpiarChat() {
-  chat.innerHTML = "";
+function getDecisionFromText(text) {
+  // Separa por "o" o por ","
+  // ejemplo: "pizza o pollo" o "pizza, pollo"
+  let options = [];
+
+  if (text.includes(",")) {
+    options = text.split(",").map(o => o.trim()).filter(Boolean);
+  } else if (text.toLowerCase().includes(" o ")) {
+    options = text.split(" o ").map(o => o.trim()).filter(Boolean);
+  } else {
+    options = text.split(" ").map(o => o.trim()).filter(Boolean);
+  }
+
+  // Quitar duplicados
+  options = [...new Set(options)];
+
+  // Si hay menos de 2, no sirve
+  if (options.length < 2) return null;
+
+  // Elegir random
+  const chosen = options[Math.floor(Math.random() * options.length)];
+  return chosen;
 }
 
-function respuestaIA(textoUser) {
-  // MODO DECIDIR
-  if (modo === "decidir") {
-    const opciones = textoUser
-      .split("o")
-      .map(x => x.trim())
-      .filter(x => x.length > 0);
+function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
 
-    if (opciones.length < 2) {
-      return "Escribí 2 opciones así: Pizza o Pollo 😎";
+  addUserMessage(text);
+  input.value = "";
+
+  // Respuesta según modo
+  if (mode === "decidir") {
+    const result = getDecisionFromText(text);
+
+    if (!result) {
+      addAIMessage("Poné al menos 2 opciones así: Pizza o Pollo 😎");
+      return;
     }
 
-    const random = Math.floor(Math.random() * opciones.length);
-    return `Yo elijo: ${opciones[random]} 🔥`;
+    addAIMessage("✅ Elegí por vos: " + result);
+  } else {
+    // Modo IA (por ahora simple)
+    addAIMessage("🤖 (Demo) Me preguntaste: " + text);
   }
-
-  // MODO PREGUNTA
-  if (modo === "pregunta") {
-    return `Modo IA activado 😎\n\nTu pregunta fue:\n"${textoUser}"`;
-  }
-
-  return "Elegí un modo primero 😅";
 }
 
-// ===============================
-// BOTONES PRINCIPALES
-// ===============================
-btnDecidir.addEventListener("click", () => {
-  modo = "decidir";
-  limpiarChat();
-  mostrarChat();
-  agregarMensaje("🔥 Modo DECIDIR activado.\nEscribí tus opciones (ej: Pizza o Pollo).", "ai");
-});
+// =========================
+// EVENTOS
+// =========================
 
-btnPregunta.addEventListener("click", () => {
-  modo = "pregunta";
-  limpiarChat();
-  mostrarChat();
-  agregarMensaje("😎 Modo IA activado.\nEscribí tu pregunta.", "ai");
-});
+// Botones principales
+btnDecidir.addEventListener("click", () => openChat("decidir"));
+btnPregunta.addEventListener("click", () => openChat("pregunta"));
 
-// VOLVER
-btnBack.addEventListener("click", () => {
-  mostrarHome();
-});
+// Volver
+btnBack.addEventListener("click", goHome);
 
-// ===============================
-// ENVIAR
-// ===============================
-function enviarMensaje() {
-  const texto = input.value.trim();
-  if (!texto) return;
+// Enviar mensaje
+btnEnviar.addEventListener("click", sendMessage);
 
-  agregarMensaje(texto, "user");
-
-  const resp = respuestaIA(texto);
-  agregarMensaje(resp, "ai");
-
-  input.value = "";
-  input.focus();
-}
-
-btnEnviar.addEventListener("click", enviarMensaje);
-
+// Enter para enviar
 input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    enviarMensaje();
-  }
+  if (e.key === "Enter") sendMessage();
 });
 
-// ===============================
-// PANELES
-// ===============================
-function abrirPanel(panel) {
+// =========================
+// PANELES (Premium / Ads / Config)
+// =========================
+function openPanel(panel) {
   panel.classList.remove("hidden");
 }
 
-function cerrarPanel(panel) {
-  panel.classList.add("hidden");
+function closePanels() {
+  panelPremium.classList.add("hidden");
+  panelAds.classList.add("hidden");
+  panelConfig.classList.add("hidden");
 }
 
-premiumBtn.addEventListener("click", () => abrirPanel(panelPremium));
-adsBtn.addEventListener("click", () => abrirPanel(panelAds));
-configBtn.addEventListener("click", () => abrirPanel(panelConfig));
+premiumBtn.addEventListener("click", () => openPanel(panelPremium));
+adsBtn.addEventListener("click", () => openPanel(panelAds));
+configBtn.addEventListener("click", () => openPanel(panelConfig));
 
+// Botones "Volver" dentro de paneles
 backBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    cerrarPanel(panelPremium);
-    cerrarPanel(panelAds);
-    cerrarPanel(panelConfig);
-  });
+  btn.addEventListener("click", closePanels);
 });
-
-// ===============================
-// INICIO
-// ===============================
-mostrarHome();
