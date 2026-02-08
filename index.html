@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DecideFácil</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -16,44 +15,45 @@
 
   <!-- BOTONES SUPERIORES -->
   <div class="top-buttons">
-  <button class="config-btn" id="configBtn">⚙</button>
+    <button class="config-btn" id="configBtn">⚙</button>
 
-  <div class="right-buttons">
-    <button class="premium-btn" id="premiumBtn">Premium</button>
-    <button class="ads-btn" id="adsBtn">Anuncios</button>
-  </div>
+    <div class="right-buttons">
+      <button class="premium-btn" id="premiumBtn">Premium</button>
+      <button class="ads-btn" id="adsBtn">Anuncios</button>
+    </div>
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
-<main class="main-content">
+  <main class="main-content">
 
-  <!-- PANTALLA INICIO -->
-  <section id="screen-home">
+    <!-- =========================
+         PANTALLA HOME (INICIO)
+    ========================= -->
+    <section id="screen-home">
 
-    <!-- BOTONES PRINCIPALES -->
-    <div class="main-actions">
-      <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
-      <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
-    </div>
+      <div class="main-actions">
+        <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
+        <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
+      </div>
 
-  </section>
+    </section>
 
-  <!-- PANTALLA CHAT -->
-  <section id="screen-chat" class="hidden">
+    <!-- =========================
+         PANTALLA CHAT (TIPO GPT)
+    ========================= -->
+    <section id="screen-chat" class="hidden">
 
-    <button id="btnBack" class="back-chat">⬅ Volver</button>
+      <button id="btnBack" class="back-chat">← Volver</button>
 
-    <!-- CHAT -->
-    <div class="chat-box" id="chat"></div>
+      <div class="chat-box" id="chat"></div>
 
-    <!-- ENTRADA -->
-    <div class="input-area">
-      <input type="text" id="input">
-      <button id="decidir" class="main-btn">ENVIAR</button>
-    </div>
+      <div class="input-area" id="inputArea">
+        <input type="text" id="input" placeholder="Escribí aquí..." />
+        <button id="decidir" class="main-btn">ENVIAR</button>
+      </div>
 
-  </section>
-  
+    </section>
+
   </main>
 
   <!-- PANEL PREMIUM -->
@@ -73,11 +73,12 @@
     <p>Los anuncios ayudan a mantener DecideFácil gratis.</p>
     <button class="back-btn">Volver</button>
   </section>
-  
+
+  <!-- PANEL CONFIG -->
   <section class="panel hidden" id="panel-config">
-  <h2>Configuración</h2>
-  <p>Aquí irá tu configuración.</p>
-  <button class="back-btn">Volver</button>
+    <h2>Configuración</h2>
+    <p>Aquí irá tu configuración.</p>
+    <button class="back-btn">Volver</button>
   </section>
 
   <!-- JS -->
