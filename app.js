@@ -1,18 +1,21 @@
 // ===============================
-// DecideFácil - app.js (PRO)
+// DecideFácil - app.js (para tu CSS)
 // ===============================
 
-// ELEMENTOS
+// PANTALLAS
 const screenHome = document.getElementById("screen-home");
 const screenChat = document.getElementById("screen-chat");
 
+// BOTONES PRINCIPALES
 const btnDecidir = document.getElementById("btnDecidir");
 const btnPregunta = document.getElementById("btnPregunta");
 const btnBack = document.getElementById("btnBack");
 
+// CHAT + INPUT
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const btnEnviar = document.getElementById("decidir");
+const inputArea = document.querySelector(".input-area");
 
 // BOTONES ARRIBA
 const premiumBtn = document.getElementById("premiumBtn");
@@ -27,39 +30,47 @@ const panelConfig = document.getElementById("panel-config");
 // BOTONES VOLVER DE PANELES
 const backBtns = document.querySelectorAll(".back-btn");
 
-// MODO ACTUAL
-let modo = ""; // "decidir" o "pregunta"
+// MODO
+let modo = "";
 
 // ===============================
-// FUNCIONES DE PANTALLA
+// FUNCIONES DE PANTALLAS
 // ===============================
 function mostrarHome() {
   screenHome.classList.remove("hidden");
   screenChat.classList.add("hidden");
+
+  // ocultar input abajo
+  inputArea.style.display = "none";
 }
 
 function mostrarChat() {
   screenHome.classList.add("hidden");
   screenChat.classList.remove("hidden");
+
+  // mostrar input abajo
+  inputArea.style.display = "flex";
 }
 
 // ===============================
-// FUNCIONES DE CHAT
+// CHAT
 // ===============================
-function agregarMensaje(texto, quien = "ia") {
+function agregarMensaje(texto, quien = "ai") {
   const msg = document.createElement("div");
-  msg.classList.add("msg");
+
+  // TU CSS usa .message
+  msg.classList.add("message");
 
   if (quien === "user") {
     msg.classList.add("user");
   } else {
-    msg.classList.add("ia");
+    msg.classList.add("ai");
   }
 
   msg.textContent = texto;
   chat.appendChild(msg);
 
-  // Scroll abajo
+  // bajar scroll
   chat.scrollTop = chat.scrollHeight;
 }
 
@@ -70,7 +81,6 @@ function limpiarChat() {
 function respuestaIA(textoUser) {
   // MODO DECIDIR
   if (modo === "decidir") {
-    // Ejemplo: "Pizza o Pollo"
     const opciones = textoUser
       .split("o")
       .map(x => x.trim())
@@ -86,10 +96,9 @@ function respuestaIA(textoUser) {
 
   // MODO PREGUNTA
   if (modo === "pregunta") {
-    return `Modo IA activado 😎\nPreguntame lo que quieras.\n\nTu pregunta fue: "${textoUser}"`;
+    return `Modo IA activado 😎\n\nTu pregunta fue:\n"${textoUser}"`;
   }
 
-  // Por si acaso
   return "Elegí un modo primero 😅";
 }
 
@@ -100,43 +109,39 @@ btnDecidir.addEventListener("click", () => {
   modo = "decidir";
   limpiarChat();
   mostrarChat();
-  agregarMensaje("🔥 Modo DECIDIR activado.\nEscribí tus opciones (ej: Pizza o Pollo).", "ia");
+  agregarMensaje("🔥 Modo DECIDIR activado.\nEscribí tus opciones (ej: Pizza o Pollo).", "ai");
 });
 
 btnPregunta.addEventListener("click", () => {
   modo = "pregunta";
   limpiarChat();
   mostrarChat();
-  agregarMensaje("😎 Modo IA activado.\nEscribí tu pregunta.", "ia");
+  agregarMensaje("😎 Modo IA activado.\nEscribí tu pregunta.", "ai");
 });
 
-// BOTÓN VOLVER
+// VOLVER
 btnBack.addEventListener("click", () => {
   mostrarHome();
 });
 
 // ===============================
-// ENVIAR MENSAJE
+// ENVIAR
 // ===============================
 function enviarMensaje() {
   const texto = input.value.trim();
   if (!texto) return;
 
-  // Mensaje usuario
   agregarMensaje(texto, "user");
 
-  // Respuesta IA
   const resp = respuestaIA(texto);
-  agregarMensaje(resp, "ia");
+  agregarMensaje(resp, "ai");
 
-  // Limpiar input
   input.value = "";
   input.focus();
 }
 
 btnEnviar.addEventListener("click", enviarMensaje);
 
-// ENTER PARA ENVIAR
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     enviarMensaje();
@@ -144,7 +149,7 @@ input.addEventListener("keydown", (e) => {
 });
 
 // ===============================
-// PANELES PREMIUM / ADS / CONFIG
+// PANELES
 // ===============================
 function abrirPanel(panel) {
   panel.classList.remove("hidden");
@@ -158,7 +163,6 @@ premiumBtn.addEventListener("click", () => abrirPanel(panelPremium));
 adsBtn.addEventListener("click", () => abrirPanel(panelAds));
 configBtn.addEventListener("click", () => abrirPanel(panelConfig));
 
-// BOTONES "VOLVER" DE LOS PANELES
 backBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     cerrarPanel(panelPremium);
