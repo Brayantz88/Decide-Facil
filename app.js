@@ -1,18 +1,19 @@
-// =========================
+// =============================
 // ELEMENTOS
-// =========================
+// =============================
 const screenHome = document.getElementById("screen-home");
 const screenChat = document.getElementById("screen-chat");
 
 const btnDecidir = document.getElementById("btnDecidir");
 const btnPregunta = document.getElementById("btnPregunta");
-const btnBack = document.getElementById("btnBack");
+const btnVolver = document.getElementById("btnVolver");
 
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const btnEnviar = document.getElementById("decidir");
+const inputArea = document.getElementById("inputArea");
 
-// Botones de arriba
+// Top botones
 const premiumBtn = document.getElementById("premiumBtn");
 const adsBtn = document.getElementById("adsBtn");
 const configBtn = document.getElementById("configBtn");
@@ -22,148 +23,142 @@ const panelPremium = document.getElementById("panel-premium");
 const panelAds = document.getElementById("panel-ads");
 const panelConfig = document.getElementById("panel-config");
 
-// Botones volver de paneles
+// Botones volver paneles
 const backBtns = document.querySelectorAll(".back-btn");
 
-// =========================
+// =============================
 // VARIABLES
-// =========================
-let mode = ""; // "decidir" o "pregunta"
+// =============================
+let modo = "decidir"; // decidir o ia
 
-// =========================
+// =============================
 // FUNCIONES
-// =========================
-function openChat(selectedMode) {
-  mode = selectedMode;
+// =============================
+function abrirChat(modoElegido) {
+  modo = modoElegido;
 
-  // Ocultar HOME y mostrar CHAT
+  // Ocultar home
   screenHome.classList.add("hidden");
+
+  // Mostrar chat
   screenChat.classList.remove("hidden");
 
-  // Limpiar chat al entrar (opcional)
+  // Mostrar input
+  inputArea.style.display = "flex";
+
+  // Limpiar chat
   chat.innerHTML = "";
 
-  // Mensaje inicial según modo
-  if (mode === "decidir") {
-    addAIMessage("🔥 Modo DECIDIR activado. Escribí tus opciones (ej: Pizza o Pollo).");
+  // Mensaje inicial
+  if (modo === "decidir") {
+    addAI("🔥 Modo DECIDIR activado. Escribí tus opciones (ej: Pizza o Pollo).");
   } else {
-    addAIMessage("😎 Modo IA activado. Preguntame lo que quieras.");
+    addAI("🤖 Modo IA activado. Escribí tu pregunta.");
   }
 
-  // Enfocar input
-  setTimeout(() => input.focus(), 200);
+  input.focus();
 }
 
-function goHome() {
-  // Ocultar CHAT y mostrar HOME
+function volverHome() {
   screenChat.classList.add("hidden");
   screenHome.classList.remove("hidden");
+  inputArea.style.display = "none";
 }
 
-function addUserMessage(text) {
+function addUser(texto) {
   const div = document.createElement("div");
   div.className = "message user";
-  div.textContent = text;
+  div.textContent = texto;
   chat.appendChild(div);
-  scrollChat();
-}
-
-function addAIMessage(text) {
-  const div = document.createElement("div");
-  div.className = "message ai";
-  div.textContent = text;
-  chat.appendChild(div);
-  scrollChat();
-}
-
-function scrollChat() {
   chat.scrollTop = chat.scrollHeight;
 }
 
-function getDecisionFromText(text) {
-  // Separa por "o" o por ","
-  // ejemplo: "pizza o pollo" o "pizza, pollo"
-  let options = [];
-
-  if (text.includes(",")) {
-    options = text.split(",").map(o => o.trim()).filter(Boolean);
-  } else if (text.toLowerCase().includes(" o ")) {
-    options = text.split(" o ").map(o => o.trim()).filter(Boolean);
-  } else {
-    options = text.split(" ").map(o => o.trim()).filter(Boolean);
-  }
-
-  // Quitar duplicados
-  options = [...new Set(options)];
-
-  // Si hay menos de 2, no sirve
-  if (options.length < 2) return null;
-
-  // Elegir random
-  const chosen = options[Math.floor(Math.random() * options.length)];
-  return chosen;
+function addAI(texto) {
+  const div = document.createElement("div");
+  div.className = "message ai";
+  div.textContent = texto;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
 }
 
-function sendMessage() {
-  const text = input.value.trim();
-  if (!text) return;
+function responderDecidir(texto) {
+  // Separar por "o"
+  const partes = texto.split(" o ").map(x => x.trim()).filter(x => x);
 
-  addUserMessage(text);
+  if (partes.length < 2) {
+    addAI("😅 Escribí mínimo 2 opciones así: Pizza o Pollo");
+    return;
+  }
+
+  const opcion = partes[Math.floor(Math.random() * partes.length)];
+  addAI("🎯 DecideFácil eligió: " + opcion.toUpperCase());
+}
+
+function responderIA(texto) {
+  // Por ahora solo simulación
+  addAI("🤖 (IA demo) Entendí tu pregunta: " + texto);
+  addAI("⚡ Próximo paso: conectar IA real cuando tengas API.");
+}
+
+// =============================
+// EVENTOS HOME
+// =============================
+btnDecidir.addEventListener("click", () => abrirChat("decidir"));
+btnPregunta.addEventListener("click", () => abrirChat("ia"));
+
+// =============================
+// EVENTO VOLVER
+// =============================
+btnVolver.addEventListener("click", volverHome);
+
+// =============================
+// ENVIAR MENSAJE
+// =============================
+btnEnviar.addEventListener("click", () => {
+  const texto = input.value.trim();
+  if (!texto) return;
+
+  addUser(texto);
   input.value = "";
 
-  // Respuesta según modo
-  if (mode === "decidir") {
-    const result = getDecisionFromText(text);
-
-    if (!result) {
-      addAIMessage("Poné al menos 2 opciones así: Pizza o Pollo 😎");
-      return;
-    }
-
-    addAIMessage("✅ Elegí por vos: " + result);
+  if (modo === "decidir") {
+    responderDecidir(texto);
   } else {
-    // Modo IA (por ahora simple)
-    addAIMessage("🤖 (Demo) Me preguntaste: " + text);
+    responderIA(texto);
   }
-}
-
-// =========================
-// EVENTOS
-// =========================
-
-// Botones principales
-btnDecidir.addEventListener("click", () => openChat("decidir"));
-btnPregunta.addEventListener("click", () => openChat("pregunta"));
-
-// Volver
-btnBack.addEventListener("click", goHome);
-
-// Enviar mensaje
-btnEnviar.addEventListener("click", sendMessage);
+});
 
 // Enter para enviar
 input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
+  if (e.key === "Enter") {
+    btnEnviar.click();
+  }
 });
 
-// =========================
-// PANELES (Premium / Ads / Config)
-// =========================
-function openPanel(panel) {
-  panel.classList.remove("hidden");
-}
+// =============================
+// PANELES (PREMIUM / ADS / CONFIG)
+// =============================
+premiumBtn.addEventListener("click", () => {
+  panelPremium.classList.remove("hidden");
+});
 
-function closePanels() {
-  panelPremium.classList.add("hidden");
-  panelAds.classList.add("hidden");
-  panelConfig.classList.add("hidden");
-}
+adsBtn.addEventListener("click", () => {
+  panelAds.classList.remove("hidden");
+});
 
-premiumBtn.addEventListener("click", () => openPanel(panelPremium));
-adsBtn.addEventListener("click", () => openPanel(panelAds));
-configBtn.addEventListener("click", () => openPanel(panelConfig));
+configBtn.addEventListener("click", () => {
+  panelConfig.classList.remove("hidden");
+});
 
-// Botones "Volver" dentro de paneles
 backBtns.forEach(btn => {
-  btn.addEventListener("click", closePanels);
+  btn.addEventListener("click", () => {
+    panelPremium.classList.add("hidden");
+    panelAds.classList.add("hidden");
+    panelConfig.classList.add("hidden");
+  });
 });
+
+// =============================
+// INICIO
+// =============================
+volverHome();
