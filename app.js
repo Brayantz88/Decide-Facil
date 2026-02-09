@@ -1,19 +1,35 @@
 // =============================
-// ELEMENTOS
+// PANTALLAS
 // =============================
 const screenHome = document.getElementById("screen-home");
-const screenChat = document.getElementById("screen-chat");
+const screenDecidir = document.getElementById("screen-decidir");
+const screenIA = document.getElementById("screen-ia");
 
+// =============================
+// BOTONES HOME
+// =============================
 const btnDecidir = document.getElementById("btnDecidir");
 const btnPregunta = document.getElementById("btnPregunta");
-const btnVolver = document.getElementById("btnVolver");
 
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-const btnEnviar = document.getElementById("decidir");
-const inputArea = document.getElementById("inputArea");
+// =============================
+// CHAT DECIDIR
+// =============================
+const chatDecidir = document.getElementById("chatDecidir");
+const inputDecidir = document.getElementById("inputDecidir");
+const enviarDecidir = document.getElementById("enviarDecidir");
+const volverDecidir = document.getElementById("volverDecidir");
 
-// Top botones
+// =============================
+// CHAT IA
+// =============================
+const chatIA = document.getElementById("chatIA");
+const inputIA = document.getElementById("inputIA");
+const enviarIA = document.getElementById("enviarIA");
+const volverIA = document.getElementById("volverIA");
+
+// =============================
+// TOP BOTONES
+// =============================
 const premiumBtn = document.getElementById("premiumBtn");
 const adsBtn = document.getElementById("adsBtn");
 const configBtn = document.getElementById("configBtn");
@@ -22,133 +38,144 @@ const configBtn = document.getElementById("configBtn");
 const panelPremium = document.getElementById("panel-premium");
 const panelAds = document.getElementById("panel-ads");
 const panelConfig = document.getElementById("panel-config");
-
-// Botones volver paneles
 const backBtns = document.querySelectorAll(".back-btn");
-
-// =============================
-// VARIABLES
-// =============================
-let modo = "decidir"; // decidir o ia
 
 // =============================
 // FUNCIONES
 // =============================
-function abrirChat(modoElegido) {
-  modo = modoElegido;
-
-  // Ocultar home
+function ocultarTodo() {
   screenHome.classList.add("hidden");
-
-  // Mostrar chat
-  screenChat.classList.remove("hidden");
-
-  // Mostrar input
-  inputArea.style.display = "flex";
-
-  // Limpiar chat
-  chat.innerHTML = "";
-
-  // Mensaje inicial
-  if (modo === "decidir") {
-    addAI("🔥 Modo DECIDIR activado. Escribí tus opciones (ej: Pizza o Pollo).");
-  } else {
-    addAI("🤖 Modo IA activado. Escribí tu pregunta.");
-  }
-
-  input.focus();
+  screenDecidir.classList.add("hidden");
+  screenIA.classList.add("hidden");
 }
 
-function volverHome() {
-  screenChat.classList.add("hidden");
+function mostrarHome() {
+  ocultarTodo();
   screenHome.classList.remove("hidden");
-  inputArea.style.display = "none";
+
+  // Mostrar botones de arriba SOLO en home
+  document.querySelector(".top-buttons").style.display = "flex";
+  document.querySelector(".title").style.display = "block";
 }
 
-function addUser(texto) {
+function mostrarDecidir() {
+  ocultarTodo();
+  screenDecidir.classList.remove("hidden");
+
+  // Ocultar botones de arriba en chat
+  document.querySelector(".top-buttons").style.display = "none";
+  document.querySelector(".title").style.display = "none";
+
+  chatDecidir.innerHTML = "";
+  addAI(chatDecidir, "🔥 Modo DECIDIR activado. Escribí: Pizza o Pollo");
+  inputDecidir.focus();
+}
+
+function mostrarIA() {
+  ocultarTodo();
+  screenIA.classList.remove("hidden");
+
+  // Ocultar botones de arriba en chat
+  document.querySelector(".top-buttons").style.display = "none";
+  document.querySelector(".title").style.display = "none";
+
+  chatIA.innerHTML = "";
+  addAI(chatIA, "🤖 Modo IA activado. Escribí tu pregunta.");
+  inputIA.focus();
+}
+
+// =============================
+// MENSAJES
+// =============================
+function addUser(chatBox, texto) {
   const div = document.createElement("div");
   div.className = "message user";
   div.textContent = texto;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function addAI(texto) {
+function addAI(chatBox, texto) {
   const div = document.createElement("div");
   div.className = "message ai";
   div.textContent = texto;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// =============================
+// RESPUESTA DECIDIR
+// =============================
 function responderDecidir(texto) {
-  // Separar por "o"
   const partes = texto.split(" o ").map(x => x.trim()).filter(x => x);
 
   if (partes.length < 2) {
-    addAI("😅 Escribí mínimo 2 opciones así: Pizza o Pollo");
+    addAI(chatDecidir, "😅 Poné mínimo 2 opciones así: Pizza o Pollo");
     return;
   }
 
   const opcion = partes[Math.floor(Math.random() * partes.length)];
-  addAI("🎯 DecideFácil eligió: " + opcion.toUpperCase());
+  addAI(chatDecidir, "🎯 DecideFácil eligió: " + opcion.toUpperCase());
 }
 
+// =============================
+// RESPUESTA IA (DEMO)
+// =============================
 function responderIA(texto) {
-  // Por ahora solo simulación
-  addAI("🤖 (IA demo) Entendí tu pregunta: " + texto);
-  addAI("⚡ Próximo paso: conectar IA real cuando tengas API.");
+  addAI(chatIA, "🤖 (IA demo) Entendí tu pregunta: " + texto);
+  addAI(chatIA, "⚡ Próximo paso: conectar IA real cuando tengas API.");
 }
 
 // =============================
 // EVENTOS HOME
 // =============================
-btnDecidir.addEventListener("click", () => abrirChat("decidir"));
-btnPregunta.addEventListener("click", () => abrirChat("ia"));
+btnDecidir.addEventListener("click", mostrarDecidir);
+btnPregunta.addEventListener("click", mostrarIA);
 
 // =============================
-// EVENTO VOLVER
+// VOLVER
 // =============================
-btnVolver.addEventListener("click", volverHome);
+volverDecidir.addEventListener("click", mostrarHome);
+volverIA.addEventListener("click", mostrarHome);
 
 // =============================
-// ENVIAR MENSAJE
+// ENVIAR DECIDIR
 // =============================
-btnEnviar.addEventListener("click", () => {
-  const texto = input.value.trim();
+enviarDecidir.addEventListener("click", () => {
+  const texto = inputDecidir.value.trim();
   if (!texto) return;
 
-  addUser(texto);
-  input.value = "";
-
-  if (modo === "decidir") {
-    responderDecidir(texto);
-  } else {
-    responderIA(texto);
-  }
+  addUser(chatDecidir, texto);
+  inputDecidir.value = "";
+  responderDecidir(texto);
 });
 
-// Enter para enviar
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    btnEnviar.click();
-  }
+inputDecidir.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") enviarDecidir.click();
 });
 
 // =============================
-// PANELES (PREMIUM / ADS / CONFIG)
+// ENVIAR IA
 // =============================
-premiumBtn.addEventListener("click", () => {
-  panelPremium.classList.remove("hidden");
+enviarIA.addEventListener("click", () => {
+  const texto = inputIA.value.trim();
+  if (!texto) return;
+
+  addUser(chatIA, texto);
+  inputIA.value = "";
+  responderIA(texto);
 });
 
-adsBtn.addEventListener("click", () => {
-  panelAds.classList.remove("hidden");
+inputIA.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") enviarIA.click();
 });
 
-configBtn.addEventListener("click", () => {
-  panelConfig.classList.remove("hidden");
-});
+// =============================
+// PANELES TOP
+// =============================
+premiumBtn.addEventListener("click", () => panelPremium.classList.remove("hidden"));
+adsBtn.addEventListener("click", () => panelAds.classList.remove("hidden"));
+configBtn.addEventListener("click", () => panelConfig.classList.remove("hidden"));
 
 backBtns.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -161,4 +188,4 @@ backBtns.forEach(btn => {
 // =============================
 // INICIO
 // =============================
-volverHome();
+mostrarHome();
