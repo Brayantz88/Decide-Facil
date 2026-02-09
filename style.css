@@ -10,7 +10,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden; /* NO SCROLL */
+  overflow: hidden;
 }
 
 body {
@@ -82,7 +82,7 @@ body {
 ========================= */
 .title {
   position: fixed;
-  top: 140px; /* más abajo */
+  top: 140px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 52px;
@@ -91,6 +91,7 @@ body {
   letter-spacing: 1px;
   z-index: 90;
   pointer-events: none;
+  opacity: 0.25;
 }
 
 /* =========================
@@ -115,9 +116,6 @@ body {
   flex-direction: column;
   gap: 28px;
   align-items: center;
-
-  /* moverlos un poquito a la derecha */
-  transform: translateX(0px);
 }
 
 .action-btn {
@@ -132,7 +130,6 @@ body {
   color: #000;
 }
 
-/* hover */
 .action-btn:hover {
   background: #d8d8d8;
 }
@@ -140,15 +137,27 @@ body {
 /* =========================
    CHAT
 ========================= */
+#screen-chat {
+  width: 100%;
+  height: 100vh;
+  padding-top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .chat-box {
   width: 100%;
   max-width: 600px;
-  padding: 10px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  overflow-y: auto;
+  height: calc(100vh - 260px);
 }
 
+/* Mensajes */
 .message {
   padding: 14px 16px;
   border-radius: 14px;
@@ -177,7 +186,7 @@ body {
   transform: translateX(-50%);
   width: 92%;
   max-width: 600px;
-  display: flex;
+  display: none;
   gap: 10px;
   z-index: 100;
 }
@@ -201,7 +210,24 @@ body {
 }
 
 /* =========================
-   PANELES (PREMIUM / ADS / CONFIG)
+   BOTÓN VOLVER
+========================= */
+.back-chat {
+  position: fixed;
+  left: 20px;
+  bottom: 90px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  background: #444;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 120;
+}
+
+/* =========================
+   PANELES
 ========================= */
 .panel {
   position: fixed;
@@ -231,11 +257,8 @@ body {
 }
 
 /* =========================
-   BOTÓN DECIDIR ABAJO (OCULTO)
+   OCULTAR SECCIONES
 ========================= */
-#decidir {
-  display:inline-block;
-}
 .hidden {
   display: none !important;
 }
