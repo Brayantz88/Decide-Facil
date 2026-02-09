@@ -262,3 +262,16 @@ body {
 .hidden {
   display: none !important;
 }
+#screen-decidir, #screen-ia {
+  width: 100%;
+  height: 100vh;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inputAreaDecidir,
+#inputAreaIA {
+  display: flex;
+}
