@@ -10,55 +10,105 @@
 
 <body>
 
-  <!-- TÍTULO FIJO -->
+  <!-- TÍTULO -->
   <h1 class="title">DecideFácil</h1>
 
   <!-- BOTONES SUPERIORES -->
   <div class="top-buttons">
+
     <button class="config-btn" id="configBtn">⚙</button>
 
     <div class="right-buttons">
       <button class="premium-btn" id="premiumBtn">Premium</button>
       <button class="ads-btn" id="adsBtn">Anuncios</button>
     </div>
+
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-  <!-- PANTALLA HOME -->
-  <section id="screen-home">
-    <div class="main-actions">
-      <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
-      <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
-    </div>
-  </section>
+    <!-- =========================
+         PANTALLA HOME
+    ========================== -->
+    <section id="screen-home">
 
-  <!-- PANTALLA CHAT DECIDIR -->
-  <section id="screen-decidir" class="hidden">
-    <div class="chat-box" id="chatDecidir"></div>
+      <div class="main-actions">
+        <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
+        <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
+      </div>
 
-    <div class="input-area" id="inputAreaDecidir">
-      <input type="text" id="inputDecidir" placeholder="Escribe opciones... (Pizza o Pollo)" />
-      <button id="enviarDecidir">ENVIAR</button>
-    </div>
+    </section>
 
-    <button id="volverDecidir" class="back-chat">⬅ Volver</button>
-  </section>
+    <!-- =========================
+         PANTALLA CHAT DECIDIR
+    ========================== -->
+    <section id="screen-decidir" class="hidden">
 
-  <!-- PANTALLA CHAT IA -->
-  <section id="screen-ia" class="hidden">
-    <div class="chat-box" id="chatIA"></div>
+      <div class="chat-box" id="chatDecidir"></div>
 
-    <div class="input-area" id="inputAreaIA">
-      <input type="text" id="inputIA" placeholder="Pregúntame algo..." />
-      <button id="enviarIA">ENVIAR</button>
-    </div>
+      <div class="input-area" id="inputAreaDecidir">
+        <input
+          type="text"
+          id="inputDecidir"
+          placeholder="Escribe opciones... (Pizza o Pollo)"
+          autocomplete="off"
+        />
+        <button id="enviarDecidir">ENVIAR</button>
+      </div>
 
-    <button id="volverIA" class="back-chat">⬅ Volver</button>
-  </section>
+      <button id="volverDecidir" class="back-chat">⬅ Volver</button>
+
+    </section>
+
+    <!-- =========================
+         PANTALLA CHAT IA
+    ========================== -->
+    <section id="screen-ia" class="hidden">
+
+      <div class="chat-box" id="chatIA"></div>
+
+      <div class="input-area" id="inputAreaIA">
+        <input
+          type="text"
+          id="inputIA"
+          placeholder="Pregúntame algo..."
+          autocomplete="off"
+        />
+        <button id="enviarIA">ENVIAR</button>
+      </div>
+
+      <button id="volverIA" class="back-chat">⬅ Volver</button>
+
+    </section>
 
   </main>
-<script src="app.js"></script>
+
+  <!-- =========================
+       PANELES (Premium, Ads, Config)
+       (NO los tenías en tu HTML, pero tu app.js los busca)
+  ========================== -->
+
+  <section id="panel-premium" class="panel hidden">
+    <h2>⭐ Premium</h2>
+    <p>Próximamente: desbloqueo sin anuncios y funciones pro.</p>
+    <button class="back-btn">⬅ Volver</button>
+  </section>
+
+  <section id="panel-ads" class="panel hidden">
+    <h2>📢 Anuncios</h2>
+    <p>Aquí irá la configuración de anuncios.</p>
+    <button class="back-btn">⬅ Volver</button>
+  </section>
+
+  <section id="panel-config" class="panel hidden">
+    <h2>⚙ Configuración</h2>
+    <p>Próximamente: temas, idioma, ajustes, etc.</p>
+    <button class="back-btn">⬅ Volver</button>
+  </section>
+
+  <!-- SCRIPT -->
+  <script src="app.js"></script>
+
 </body>
 </html>
