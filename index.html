@@ -26,57 +26,36 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
 
-    <!-- PANTALLA HOME -->
-    <section id="screen-home">
-      <div class="main-actions">
-        <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
-        <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
-      </div>
-    </section>
+  <!-- PANTALLA HOME -->
+  <section id="screen-home">
+    <div class="main-actions">
+      <button class="action-btn" id="btnDecidir">DECIDE POR MÍ</button>
+      <button class="action-btn" id="btnPregunta">PREGUNTA A LA IA</button>
+    </div>
+  </section>
 
-    <!-- PANTALLA CHAT -->
-    <section id="screen-chat" class="hidden">
+  <!-- PANTALLA CHAT DECIDIR -->
+  <section id="screen-decidir" class="hidden">
+    <div class="chat-box" id="chatDecidir"></div>
 
-      <div class="chat-box" id="chat"></div>
+    <div class="input-area" id="inputAreaDecidir">
+      <input type="text" id="inputDecidir" placeholder="Escribe opciones... (Pizza o Pollo)" />
+      <button id="enviarDecidir">ENVIAR</button>
+    </div>
 
-      <div class="input-area" id="inputArea">
-        <input type="text" id="input" placeholder="Escribí aquí..." />
-        <button id="decidir" class="main-btn">ENVIAR</button>
-      </div>
+    <button id="volverDecidir" class="back-chat">⬅ Volver</button>
+  </section>
 
-      <button id="btnVolver" class="back-chat">⬅ Volver</button>
+  <!-- PANTALLA CHAT IA -->
+  <section id="screen-ia" class="hidden">
+    <div class="chat-box" id="chatIA"></div>
 
-    </section>
+    <div class="input-area" id="inputAreaIA">
+      <input type="text" id="inputIA" placeholder="Pregúntame algo..." />
+      <button id="enviarIA">ENVIAR</button>
+    </div>
+
+    <button id="volverIA" class="back-chat">⬅ Volver</button>
+  </section>
 
   </main>
-
-  <!-- PANEL PREMIUM -->
-  <section class="panel hidden" id="panel-premium">
-    <h2>Premium</h2>
-    <ul>
-      <li>Sin anuncios</li>
-      <li>Respuestas más largas</li>
-      <li>Prioridad de IA</li>
-    </ul>
-    <button class="back-btn">Volver</button>
-  </section>
-
-  <!-- PANEL ANUNCIOS -->
-  <section class="panel hidden" id="panel-ads">
-    <h2>Anuncios</h2>
-    <p>Los anuncios ayudan a mantener DecideFácil gratis.</p>
-    <button class="back-btn">Volver</button>
-  </section>
-
-  <!-- PANEL CONFIG -->
-  <section class="panel hidden" id="panel-config">
-    <h2>Configuración</h2>
-    <p>Aquí irá tu configuración.</p>
-    <button class="back-btn">Volver</button>
-  </section>
-
-  <!-- JS -->
-  <script src="app.js"></script>
-
-</body>
-</html>
