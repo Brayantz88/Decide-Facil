@@ -107,15 +107,53 @@ function addAI(chatBox, texto) {
 // RESPUESTA DECIDIR
 // =============================
 function responderDecidir(texto) {
-  const partes = texto.split(" o ").map(x => x.trim()).filter(x => x);
+  // 1) Limpieza
+  const limpio = texto
+    .replace(/\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-  if (partes.length < 2) {
-    addAI(chatDecidir, "😅 Poné mínimo 2 opciones así: Pizza o Pollo");
+  // 2) Separadores permitidos:
+  // " o ", ",", "/", "|"
+  let opciones = limpio
+    .split(/(?:\s+o\s+|,|\/|\|)/i)
+    .map(x => x.trim())
+    .filter(x => x.length > 0);
+
+  // 3) Si solo puso 1 opción
+  if (opciones.length < 2) {
+    addAI(chatDecidir, "😅 Poné mínimo 2 opciones. Ej: Pizza o Pollo");
+    addAI(chatDecidir, "✅ También sirve: Pizza, Pollo, Tacos");
     return;
   }
 
-  const opcion = partes[Math.floor(Math.random() * partes.length)];
-  addAI(chatDecidir, "🎯 DecideFácil eligió: " + opcion.toUpperCase());
+  // 4) Quitar duplicados
+  opciones = [...new Set(opciones)];
+
+  if (opciones.length < 2) {
+    addAI(chatDecidir, "😅 Poné opciones diferentes bro.");
+    return;
+  }
+
+  // 5) Animación tipo IA
+  addAI(chatDecidir, "🤔 Pensando...");
+
+  setTimeout(() => {
+    addAI(chatDecidir, "3...");
+  }, 600);
+
+  setTimeout(() => {
+    addAI(chatDecidir, "2...");
+  }, 1100);
+
+  setTimeout(() => {
+    addAI(chatDecidir, "1...");
+  }, 1600);
+
+  setTimeout(() => {
+    const opcion = opciones[Math.floor(Math.random() * opciones.length)];
+    addAI(chatDecidir, "🎯 DecideFácil eligió: " + opcion.toUpperCase());
+  }, 2100);
 }
 
 // =============================
