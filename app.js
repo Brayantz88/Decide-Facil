@@ -142,9 +142,6 @@ function irDecidir() {
   // Cargar historial
   cargarHistorial("historial_decidir", chatDecidir);
 
-  // Focus al input
-  setTimeout(() => inputDecidir.focus(), 200);
-}
 
 function irIA() {
   modoActual = "ia";
@@ -159,10 +156,6 @@ function irIA() {
 
   // Cargar historial
   cargarHistorial("historial_ia", chatIA);
-
-  // Focus
-  setTimeout(() => inputIA.focus(), 200);
-}
 
 function irPanel(tipo) {
   modoActual = tipo;
