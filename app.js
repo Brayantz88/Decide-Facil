@@ -1,11 +1,13 @@
-// ================================
-// DecideFácil - app.js COMPLETO
-// Compatible con tu HTML actual
-// ================================
+/* =========================================================
+   DecideFácil - app.js
+   Compatible con tu HTML y style.css
+   (Sin errores, sin focus automático)
+========================================================= */
 
 /* =========================
    ELEMENTOS (HOME + TOP)
 ========================= */
+
 const title = document.querySelector(".title");
 const topButtons = document.querySelector(".top-buttons");
 
@@ -19,6 +21,7 @@ const configBtn = document.getElementById("configBtn");
 /* =========================
    PANTALLAS PRINCIPALES
 ========================= */
+
 const screenHome = document.getElementById("screen-home");
 const screenDecidir = document.getElementById("screen-decidir");
 const screenIA = document.getElementById("screen-ia");
@@ -26,6 +29,7 @@ const screenIA = document.getElementById("screen-ia");
 /* =========================
    CHATS + INPUTS
 ========================= */
+
 // DECIDIR
 const chatDecidir = document.getElementById("chatDecidir");
 const inputDecidir = document.getElementById("inputDecidir");
@@ -41,6 +45,7 @@ const volverIA = document.getElementById("volverIA");
 /* =========================
    PANELES (Premium / Ads / Config)
 ========================= */
+
 const panelPremium = document.getElementById("panel-premium");
 const panelAds = document.getElementById("panel-ads");
 const panelConfig = document.getElementById("panel-config");
@@ -50,13 +55,14 @@ const panelBackButtons = document.querySelectorAll(".back-btn");
 /* =========================
    VARIABLES
 ========================= */
+
 let modoActual = "home"; // home / decidir / ia / premium / ads / config
 
 /* =========================
    FUNCIONES DE UTILIDAD
 ========================= */
 
-// Mostrar solo 1 sección y ocultar el resto
+// Ocultar todo
 function ocultarTodo() {
   // Pantallas principales
   screenHome.classList.add("hidden");
@@ -69,7 +75,7 @@ function ocultarTodo() {
   panelConfig.classList.add("hidden");
 }
 
-// Mostrar barra superior y título (en home sí, en chats no)
+// Mostrar barra superior y título solo en HOME
 function mostrarTopSiHome() {
   if (modoActual === "home") {
     title.style.display = "block";
@@ -126,6 +132,9 @@ function irHome() {
   ocultarTodo();
   screenHome.classList.remove("hidden");
   mostrarTopSiHome();
+
+  // Importante: quitar focus para que no abra teclado
+  document.activeElement.blur();
 }
 
 function irDecidir() {
@@ -134,7 +143,7 @@ function irDecidir() {
   screenDecidir.classList.remove("hidden");
   mostrarTopSiHome();
 
-  // Si está vacío, mostrar mensaje inicial
+  // Mensaje inicial si está vacío
   if (chatDecidir.innerHTML.trim() === "") {
     addAI(chatDecidir, "🔥 Modo DECIDIR activado. Escribí: Pizza o Pollo");
   }
@@ -142,6 +151,9 @@ function irDecidir() {
   // Cargar historial
   cargarHistorial("historial_decidir", chatDecidir);
 
+  // NO hacemos focus (para que no se levante el teclado)
+  document.activeElement.blur();
+}
 
 function irIA() {
   modoActual = "ia";
@@ -149,13 +161,17 @@ function irIA() {
   screenIA.classList.remove("hidden");
   mostrarTopSiHome();
 
-  // Si está vacío, mensaje inicial
+  // Mensaje inicial si está vacío
   if (chatIA.innerHTML.trim() === "") {
     addAI(chatIA, "🤖 Modo IA activado. Escribí tu pregunta.");
   }
 
   // Cargar historial
   cargarHistorial("historial_ia", chatIA);
+
+  // NO hacemos focus
+  document.activeElement.blur();
+}
 
 function irPanel(tipo) {
   modoActual = tipo;
@@ -165,6 +181,9 @@ function irPanel(tipo) {
   if (tipo === "premium") panelPremium.classList.remove("hidden");
   if (tipo === "ads") panelAds.classList.remove("hidden");
   if (tipo === "config") panelConfig.classList.remove("hidden");
+
+  // Quitar focus para que no abra teclado
+  document.activeElement.blur();
 }
 
 /* =========================
@@ -200,62 +219,52 @@ async function responderDecidir(texto) {
   }
 
   addAI(chatDecidir, "🤔 Pensando...");
-  await sleep(700);
+  await sleep(600);
 
   addAI(chatDecidir, "3...");
-  await sleep(600);
+  await sleep(400);
 
   addAI(chatDecidir, "2...");
-  await sleep(600);
+  await sleep(400);
 
   addAI(chatDecidir, "1...");
-  await sleep(600);
+  await sleep(400);
 
-  // Elegir random
-  const elegido = opciones[Math.floor(Math.random() * opciones.length)];
-  addAI(chatDecidir, `🎯 DecideFácil eligió: ${elegido.toUpperCase()}`);
+  const elegida = opciones[Math.floor(Math.random() * opciones.length)];
+  addAI(chatDecidir, `✅ DecideFácil dice: ${elegida}`);
 
   guardarHistorial("historial_decidir", chatDecidir);
 }
 
 /* =========================
-   LÓGICA: IA (SIMULADA)
-   (Por ahora no usa API real)
+   LÓGICA: IA (Simulada)
+   (Luego la conectamos con API real si querés)
 ========================= */
 
 async function responderIA(texto) {
-  const limpio = limpiarTexto(texto);
+  addAI(chatIA, "🤖 Pensando...");
+  await sleep(700);
 
-  if (!limpio) return;
+  // Respuestas básicas (simulación)
+  const lower = texto.toLowerCase();
 
-  // Simular respuesta rápida
-  addAI(chatIA, "🤔 Pensando...");
-  await sleep(900);
+  let respuesta = "Interesante 😄 ¿Querés que te ayude a decidir o te explico mejor?";
 
-  // Respuesta simple por ahora (luego lo conectamos con IA real)
-  let respuesta =
-    "Buena pregunta 😎. Ahorita todavía no está conectada la IA real, pero ya está listo el chat. " +
-    "Luego le metemos IA de verdad con una API.";
+  if (lower.includes("hola")) respuesta = "¡Hola! 😄 ¿Qué querés hacer hoy?";
+  if (lower.includes("quien eres")) respuesta = "Soy DecideFácil 🤖, tu ayudante para decidir y responder.";
+  if (lower.includes("ayuda")) respuesta = "Decime tu duda y te respondo claro y rápido 💪";
+  if (lower.includes("gta 6")) respuesta = "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
+  if (lower.includes("ps5")) respuesta = "La PS5 es buenísima 😎 ¿Querés la normal o la Pro?";
 
-  // Algunas respuestas inteligentes básicas
-  const t = limpio.toLowerCase();
-
-  if (t.includes("hola")) respuesta = "¡Holaaa! 😄 ¿Qué querés preguntar?";
-  if (t.includes("como estas")) respuesta = "Estoy al 100 🔥 listo para ayudarte.";
-  if (t.includes("que es decidefacil"))
-    respuesta =
-      "DecideFácil es tu web para tomar decisiones rápido: escribís opciones y te elige una 😎.";
-
-  // Quitar el "Pensando..." (opcional: lo dejamos, pero se ve feo)
-  // Para no complicar: dejamos el pensando como un mensaje más.
-
+  // Quitar el mensaje "Pensando..."
+  // (Para no borrar todo el chat, solo agregamos otra respuesta)
   addAI(chatIA, respuesta);
 
   guardarHistorial("historial_ia", chatIA);
 }
 
 /* =========================
-   EVENTOS PRINCIPALES (HOME)
+   BOTONES PRINCIPALES
 ========================= */
 
 btnDecidir.addEventListener("click", () => {
@@ -267,7 +276,7 @@ btnPregunta.addEventListener("click", () => {
 });
 
 /* =========================
-   BOTONES VOLVER
+   BOTONES VOLVER (CHATS)
 ========================= */
 
 volverDecidir.addEventListener("click", () => {
@@ -292,6 +301,9 @@ enviarDecidir.addEventListener("click", () => {
   guardarHistorial("historial_decidir", chatDecidir);
 
   responderDecidir(texto);
+
+  // Quitar focus para que no se quede el teclado pegado
+  inputDecidir.blur();
 });
 
 enviarIA.addEventListener("click", () => {
@@ -304,6 +316,8 @@ enviarIA.addEventListener("click", () => {
   guardarHistorial("historial_ia", chatIA);
 
   responderIA(texto);
+
+  inputIA.blur();
 });
 
 /* =========================
@@ -312,12 +326,14 @@ enviarIA.addEventListener("click", () => {
 
 inputDecidir.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
+    e.preventDefault();
     enviarDecidir.click();
   }
 });
 
 inputIA.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
+    e.preventDefault();
     enviarIA.click();
   }
 });
