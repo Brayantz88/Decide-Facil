@@ -2,6 +2,7 @@
    DecideFácil - app.js
    Compatible con tu HTML y style.css
    (Sin errores, sin focus automático)
+   + Pensando... se REEMPLAZA (no se queda pegado)
 ========================================================= */
 
 /* =========================
@@ -118,6 +119,23 @@ function addAI(chatBox, texto) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Crear mensaje IA TEMPORAL (para "Pensando...")
+function addAITemporal(chatBox, texto) {
+  const div = document.createElement("div");
+  div.className = "message ai thinking";
+  div.textContent = texto;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return div; // <- devolvemos el div para poder reemplazarlo
+}
+
+// Reemplazar un mensaje (ej: "Pensando..." por respuesta)
+function reemplazarMensaje(div, textoFinal) {
+  if (!div) return;
+  div.classList.remove("thinking");
+  div.textContent = textoFinal;
+}
+
 // Esperar (para animación)
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -143,13 +161,14 @@ function irDecidir() {
   screenDecidir.classList.remove("hidden");
   mostrarTopSiHome();
 
+  // Cargar historial
+  cargarHistorial("historial_decidir", chatDecidir);
+
   // Mensaje inicial si está vacío
   if (chatDecidir.innerHTML.trim() === "") {
     addAI(chatDecidir, "🔥 Modo DECIDIR activado. Escribí: Pizza o Pollo");
+    guardarHistorial("historial_decidir", chatDecidir);
   }
-
-  // Cargar historial
-  cargarHistorial("historial_decidir", chatDecidir);
 
   // NO hacemos focus (para que no se levante el teclado)
   document.activeElement.blur();
@@ -161,13 +180,14 @@ function irIA() {
   screenIA.classList.remove("hidden");
   mostrarTopSiHome();
 
+  // Cargar historial
+  cargarHistorial("historial_ia", chatIA);
+
   // Mensaje inicial si está vacío
   if (chatIA.innerHTML.trim() === "") {
     addAI(chatIA, "🤖 Modo IA activado. Escribí tu pregunta.");
+    guardarHistorial("historial_ia", chatIA);
   }
-
-  // Cargar historial
-  cargarHistorial("historial_ia", chatIA);
 
   // NO hacemos focus
   document.activeElement.blur();
@@ -218,47 +238,53 @@ async function responderDecidir(texto) {
     return;
   }
 
-  addAI(chatDecidir, "🤔 Pensando...");
+  // Mensaje temporal que luego se reemplaza
+  const msgPensando = addAITemporal(chatDecidir, "🤔 Pensando...");
+
   await sleep(600);
-
-  addAI(chatDecidir, "3...");
+  reemplazarMensaje(msgPensando, "3...");
   await sleep(400);
 
-  addAI(chatDecidir, "2...");
+  reemplazarMensaje(msgPensando, "2...");
   await sleep(400);
 
-  addAI(chatDecidir, "1...");
+  reemplazarMensaje(msgPensando, "1...");
   await sleep(400);
 
   const elegida = opciones[Math.floor(Math.random() * opciones.length)];
-  addAI(chatDecidir, `✅ DecideFácil dice: ${elegida}`);
+  reemplazarMensaje(msgPensando, `✅ DecideFácil dice: ${elegida}`);
 
   guardarHistorial("historial_decidir", chatDecidir);
 }
 
 /* =========================
    LÓGICA: IA (Simulada)
-   (Luego la conectamos con API real si querés)
 ========================= */
 
 async function responderIA(texto) {
-  addAI(chatIA, "🤖 Pensando...");
+  // Mensaje temporal que luego se reemplaza
+  const msgPensando = addAITemporal(chatIA, "🤖 Pensando...");
+
   await sleep(700);
 
-  // Respuestas básicas (simulación)
   const lower = texto.toLowerCase();
 
-  let respuesta = "Interesante 😄 ¿Querés que te ayude a decidir o te explico mejor?";
+  let respuesta =
+    "Interesante 😄 ¿Querés que te ayude a decidir o te explico mejor?";
 
   if (lower.includes("hola")) respuesta = "¡Hola! 😄 ¿Qué querés hacer hoy?";
-  if (lower.includes("quien eres")) respuesta = "Soy DecideFácil 🤖, tu ayudante para decidir y responder.";
-  if (lower.includes("ayuda")) respuesta = "Decime tu duda y te respondo claro y rápido 💪";
-  if (lower.includes("gta 6")) respuesta = "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
-  if (lower.includes("ps5")) respuesta = "La PS5 es buenísima 😎 ¿Querés la normal o la Pro?";
+  if (lower.includes("quien eres"))
+    respuesta = "Soy DecideFácil 🤖, tu ayudante para decidir y responder.";
+  if (lower.includes("ayuda"))
+    respuesta = "Decime tu duda y te respondo claro y rápido 💪";
+  if (lower.includes("gta 6"))
+    respuesta =
+      "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
+  if (lower.includes("ps5"))
+    respuesta = "La PS5 es buenísima 😎 ¿Querés la normal o la Pro?";
 
-  // Quitar el mensaje "Pensando..."
-  // (Para no borrar todo el chat, solo agregamos otra respuesta)
-  addAI(chatIA, respuesta);
+  // Reemplazamos el "Pensando..." por la respuesta final
+  reemplazarMensaje(msgPensando, respuesta);
 
   guardarHistorial("historial_ia", chatIA);
 }
@@ -369,7 +395,7 @@ panelBackButtons.forEach((btn) => {
 ========================= */
 
 window.addEventListener("load", () => {
-  // Cargar historiales (por si querés que se guarden siempre)
+  // Cargar historiales
   cargarHistorial("historial_decidir", chatDecidir);
   cargarHistorial("historial_ia", chatIA);
 
