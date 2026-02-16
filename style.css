@@ -1,6 +1,6 @@
-/* =========================
-   RESET GENERAL
-========================= */
+/* =====================================
+   RESET Y BASE
+===================================== */
 * {
   margin: 0;
   padding: 0;
@@ -9,259 +9,319 @@
 }
 
 html, body {
+  width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 body {
-  background: #0b0b0b;
-  color: #ffffff;
+  background: radial-gradient(circle at top, #111, #000);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* =========================
-   BARRA SUPERIOR
-========================= */
+/* =====================================
+   TITULO (COMO SEGUNDA IMAGEN)
+===================================== */
+.title {
+  position: fixed;
+  top: 230px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 52px;
+  font-weight: 900;
+  opacity: 0.18;
+  letter-spacing: 1px;
+  text-align: center;
+  z-index: 1;
+  pointer-events: none;
+  width: 100%;
+}
+
+/* =====================================
+   BOTONES SUPERIORES
+===================================== */
 .top-buttons {
   position: fixed;
-  top: 20px;
+  top: 35px;
   left: 0;
   width: 100%;
-  padding: 0 25px;
+  padding-left: 18px;
+  padding-right: 18px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  z-index: 100;
+  align-items: flex-start;
+  z-index: 999;
 }
 
-/* BOTÓN TUERCA */
+/* =====================================
+   CONFIG (BOTÓN IZQUIERDA)
+===================================== */
 .config-btn {
-  width: 54px;
-  height: 54px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   border: none;
   background: #222;
   color: white;
-  font-size: 22px;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.6);
+  transition: transform 0.15s ease;
 }
 
-/* CONTENEDOR DERECHA */
+.config-btn:active {
+  transform: scale(0.96);
+}
+
+/* =====================================
+   CONTENEDOR DERECHA (PREMIUM + ADS)
+===================================== */
 .right-buttons {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   align-items: flex-end;
 }
 
-/* PREMIUM */
+/* =====================================
+   BOTÓN PREMIUM (ARRIBA)
+===================================== */
 .premium-btn {
-  background: gold;
-  color: black;
+  width: 165px;
+  height: 62px;
+  border-radius: 20px;
   border: none;
-  padding: 14px 26px;
-  border-radius: 16px;
+  background: #ffd84d;
+  color: black;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.55);
+  transition: transform 0.15s ease;
 }
 
-/* ANUNCIOS */
+.premium-btn:active {
+  transform: scale(0.98);
+}
+
+/* =====================================
+   BOTÓN ANUNCIOS (ABAJO)
+===================================== */
 .ads-btn {
+  width: 140px;
+  height: 52px;
+  border-radius: 18px;
+  border: none;
   background: #444;
   color: white;
-  border: none;
-  padding: 12px 26px;
-  border-radius: 16px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.55);
+  transition: transform 0.15s ease;
 }
 
-/* =========================
-   TITULO (GRANDE AL CENTRO)
-========================= */
-.title {
-  position: fixed;
-  top: 160px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 64px;
-  font-weight: 900;
-  text-align: center;
-  letter-spacing: 1px;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.18;
+.ads-btn:active {
+  transform: scale(0.98);
 }
 
-/* =========================
-   CONTENIDO PRINCIPAL
-========================= */
+/* =====================================
+   MAIN CONTENT
+===================================== */
 .main-content {
-  position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding-top: 170px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 28px;
-}
-
-/* =========================
-   BOTONES PRINCIPALES
-========================= */
-.main-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
   align-items: center;
 }
 
-.action-btn {
-  width: 320px;
-  padding: 28px 0;
-  font-size: 20px;
-  font-weight: 900;
-  border-radius: 26px;
-  border: none;
-  cursor: pointer;
-  background: #eaeaea;
-  color: #000;
-}
-
-.action-btn:hover {
-  background: #d8d8d8;
-}
-
-/* =========================
-   CHAT
-========================= */
-.chat-box {
+/* =====================================
+   HOME
+===================================== */
+#screen-home {
   width: 100%;
-  max-width: 600px;
-  padding: 10px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-actions {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 40px;
+  align-items: center;
+  margin-top: 120px;
+}
+
+/* =====================================
+   BOTONES GRANDES
+===================================== */
+.action-btn {
+  width: 86%;
+  max-width: 420px;
+  height: 90px;
+  border-radius: 35px;
+  border: none;
+  background: #eaeaea;
+  color: black;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.65);
+  transition: transform 0.12s ease;
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+/* =====================================
+   CLASE PARA OCULTAR
+===================================== */
+.hidden {
+  display: none;
+}
+
+/* =====================================
+   CHAT BOX
+===================================== */
+.chat-box {
+  width: 95%;
+  max-width: 500px;
+  height: 65vh;
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 18px;
+  padding: 15px;
   overflow-y: auto;
-  height: calc(100vh - 260px);
+  margin: auto;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.65);
 }
 
-/* Mensajes */
-.message {
-  padding: 14px 16px;
-  border-radius: 14px;
-  max-width: 85%;
-  line-height: 1.4;
-  font-size: 16px;
-}
-
-.message.user {
-  align-self: flex-end;
-  background: #2563eb;
-}
-
-.message.ai {
-  align-self: flex-start;
-  background: #333;
-}
-
-/* =========================
-   INPUT ABAJO
-========================= */
+/* =====================================
+   INPUT + BOTÓN ENVIAR
+===================================== */
 .input-area {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  max-width: 600px;
+  width: 95%;
+  max-width: 500px;
   display: flex;
   gap: 10px;
-  z-index: 100;
+  margin: 15px auto 0 auto;
 }
 
 .input-area input {
   flex: 1;
-  padding: 14px;
+  height: 50px;
   border-radius: 14px;
   border: none;
+  padding-left: 14px;
+  padding-right: 14px;
   font-size: 16px;
+  outline: none;
 }
 
 .input-area button {
-  padding: 14px 18px;
+  width: 110px;
   border-radius: 14px;
   border: none;
-  font-weight: 700;
-  background: #2563eb;
-  color: white;
+  background: #ffd84d;
+  color: black;
+  font-weight: 900;
   cursor: pointer;
+  transition: transform 0.12s ease;
 }
 
-/* =========================
-   BOTÓN VOLVER
-========================= */
+.input-area button:active {
+  transform: scale(0.98);
+}
+
+/* =====================================
+   BOTÓN VOLVER EN CHAT
+===================================== */
 .back-chat {
-  position: fixed;
-  left: 20px;
-  bottom: 90px;
-  padding: 10px 14px;
-  border-radius: 12px;
+  margin: 18px auto 0 auto;
+  display: block;
   border: none;
-  background: #444;
+  background: #333;
   color: white;
   font-weight: 800;
+  padding: 12px 18px;
+  border-radius: 14px;
   cursor: pointer;
-  z-index: 120;
+  transition: transform 0.12s ease;
 }
 
-/* =========================
-   PANELES
-========================= */
+.back-chat:active {
+  transform: scale(0.98);
+}
+
+/* =====================================
+   PANELES (PREMIUM, ADS, CONFIG)
+===================================== */
 .panel {
   position: fixed;
   inset: 0;
-  background: #0b0b0b;
-  color: white;
-  padding: 30px 20px;
-  z-index: 200;
-}
-
-.panel.hidden {
-  display: none;
+  background: rgba(0, 0, 0, 0.96);
+  padding: 40px 20px;
+  z-index: 9999;
+  text-align: center;
 }
 
 .panel h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.panel p {
+  opacity: 0.8;
   margin-bottom: 20px;
 }
 
-.panel button {
-  margin-top: 20px;
-  padding: 14px 20px;
-  border-radius: 14px;
+.back-btn {
   border: none;
-  background: #2563eb;
-  color: white;
-  font-weight: 700;
+  background: #ffd84d;
+  color: black;
+  font-weight: 900;
+  padding: 12px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
 }
 
-/* =========================
-   OCULTAR SECCIONES
-========================= */
-.hidden {
-  display: none !important;
+.back-btn:active {
+  transform: scale(0.98);
 }
 
-/* =========================
-   PANTALLAS DECIDIR / IA
-========================= */
-#screen-decidir, #screen-ia {
-  width: 100%;
-  height: 100vh;
-  padding-top: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* =====================================
+   RESPONSIVE EXTRA (CELULARES PEQUEÑOS)
+===================================== */
+@media (max-width: 360px) {
+  .title {
+    font-size: 46px;
+    top: 220px;
+  }
+
+  .premium-btn {
+    width: 150px;
+    height: 58px;
+    font-size: 18px;
+  }
+
+  .ads-btn {
+    width: 130px;
+    height: 50px;
+    font-size: 17px;
+  }
+
+  .action-btn {
+    height: 86px;
+    font-size: 20px;
+  }
 }
