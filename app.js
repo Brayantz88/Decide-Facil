@@ -1,6 +1,7 @@
 /* =========================================================
    DecideFácil - app.js
    COMPLETO + FIX BACK BUTTON CELULAR + sessionStorage
+   + FIX PENSANDO 3 2 1 (se borra)
 ========================================================= */
 
 /* =========================
@@ -121,6 +122,16 @@ function addAI(chatBox, texto) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Crear mensaje temporal (para "Pensando... 3..2..1..")
+function addAITemporal(chatBox, texto) {
+  const div = document.createElement("div");
+  div.className = "message ai thinking-temp";
+  div.textContent = texto;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return div;
+}
+
 // Esperar (para animación)
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -149,13 +160,13 @@ function irDecidir() {
   screenDecidir.classList.remove("hidden");
   mostrarTopSiHome();
 
+  // Cargar historial
+  cargarHistorial("historial_decidir", chatDecidir);
+
   // Mensaje inicial si está vacío
   if (chatDecidir.innerHTML.trim() === "") {
     addAI(chatDecidir, "🔥 Modo DECIDIR activado. Escribí: Pizza o Pollo");
   }
-
-  // Cargar historial
-  cargarHistorial("historial_decidir", chatDecidir);
 
   // Guardar modo
   sessionStorage.setItem("modoActual", modoActual);
@@ -170,13 +181,13 @@ function irIA() {
   screenIA.classList.remove("hidden");
   mostrarTopSiHome();
 
+  // Cargar historial
+  cargarHistorial("historial_ia", chatIA);
+
   // Mensaje inicial si está vacío
   if (chatIA.innerHTML.trim() === "") {
     addAI(chatIA, "🤖 Modo IA activado. Escribí tu pregunta.");
   }
-
-  // Cargar historial
-  cargarHistorial("historial_ia", chatIA);
 
   // Guardar modo
   sessionStorage.setItem("modoActual", modoActual);
@@ -233,17 +244,21 @@ async function responderDecidir(texto) {
     return;
   }
 
-  addAI(chatDecidir, "🤔 Pensando...");
+  // 🔥 MENSAJE TEMPORAL (1 solo)
+  const temp = addAITemporal(chatDecidir, "🤔 Pensando...");
   await sleep(600);
 
-  addAI(chatDecidir, "3...");
+  temp.textContent = "3...";
   await sleep(400);
 
-  addAI(chatDecidir, "2...");
+  temp.textContent = "2...";
   await sleep(400);
 
-  addAI(chatDecidir, "1...");
+  temp.textContent = "1...";
   await sleep(400);
+
+  // BORRAR el temporal
+  temp.remove();
 
   const elegida = opciones[Math.floor(Math.random() * opciones.length)];
   addAI(chatDecidir, `✅ DecideFácil dice: ${elegida}`);
@@ -256,7 +271,8 @@ async function responderDecidir(texto) {
 ========================= */
 
 async function responderIA(texto) {
-  addAI(chatIA, "🤖 Pensando...");
+  // 🔥 MENSAJE TEMPORAL (1 solo)
+  const temp = addAITemporal(chatIA, "🤖 Pensando...");
   await sleep(700);
 
   const lower = texto.toLowerCase();
@@ -270,9 +286,13 @@ async function responderIA(texto) {
   if (lower.includes("ayuda"))
     respuesta = "Decime tu duda y te respondo claro y rápido 💪";
   if (lower.includes("gta 6"))
-    respuesta = "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
+    respuesta =
+      "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
   if (lower.includes("ps5"))
     respuesta = "La PS5 es buenísima 😎 ¿Querés la normal o la Pro?";
+
+  // BORRAR temporal
+  temp.remove();
 
   addAI(chatIA, respuesta);
 
