@@ -1,8 +1,6 @@
 /* =========================================================
    DecideFácil - app.js
-   Compatible con tu HTML y style.css
-   (Sin errores, sin focus automático)
-   + Pensando... se REEMPLAZA (no se queda pegado)
+   COMPLETO + FIX BACK BUTTON CELULAR + sessionStorage
 ========================================================= */
 
 /* =========================
@@ -42,6 +40,10 @@ const chatIA = document.getElementById("chatIA");
 const inputIA = document.getElementById("inputIA");
 const enviarIA = document.getElementById("enviarIA");
 const volverIA = document.getElementById("volverIA");
+
+// INPUT AREAS (para el back button fix)
+const inputAreaDecidir = document.getElementById("inputAreaDecidir");
+const inputAreaIA = document.getElementById("inputAreaIA");
 
 /* =========================
    PANELES (Premium / Ads / Config)
@@ -94,7 +96,7 @@ function guardarHistorial(clave, chatBox) {
 
 // Cargar historial (sessionStorage)
 function cargarHistorial(clave, chatBox) {
-  const data =sessionStorage.getItem(clave);
+  const data = sessionStorage.getItem(clave);
   if (data) {
     chatBox.innerHTML = data;
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -119,23 +121,6 @@ function addAI(chatBox, texto) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Crear mensaje IA TEMPORAL (para "Pensando...")
-function addAITemporal(chatBox, texto) {
-  const div = document.createElement("div");
-  div.className = "message ai thinking";
-  div.textContent = texto;
-  chatBox.appendChild(div);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  return div; // <- devolvemos el div para poder reemplazarlo
-}
-
-// Reemplazar un mensaje (ej: "Pensando..." por respuesta)
-function reemplazarMensaje(div, textoFinal) {
-  if (!div) return;
-  div.classList.remove("thinking");
-  div.textContent = textoFinal;
-}
-
 // Esperar (para animación)
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -151,7 +136,10 @@ function irHome() {
   screenHome.classList.remove("hidden");
   mostrarTopSiHome();
 
-  // Importante: quitar focus para que no abra teclado
+  // Guardar modo
+  sessionStorage.setItem("modoActual", modoActual);
+
+  // Quitar focus para que no abra teclado
   document.activeElement.blur();
 }
 
@@ -161,14 +149,16 @@ function irDecidir() {
   screenDecidir.classList.remove("hidden");
   mostrarTopSiHome();
 
-  // Cargar historial
-  cargarHistorial("historial_decidir", chatDecidir);
-
   // Mensaje inicial si está vacío
   if (chatDecidir.innerHTML.trim() === "") {
     addAI(chatDecidir, "🔥 Modo DECIDIR activado. Escribí: Pizza o Pollo");
-    guardarHistorial("historial_decidir", chatDecidir);
   }
+
+  // Cargar historial
+  cargarHistorial("historial_decidir", chatDecidir);
+
+  // Guardar modo
+  sessionStorage.setItem("modoActual", modoActual);
 
   // NO hacemos focus (para que no se levante el teclado)
   document.activeElement.blur();
@@ -180,14 +170,16 @@ function irIA() {
   screenIA.classList.remove("hidden");
   mostrarTopSiHome();
 
-  // Cargar historial
-  cargarHistorial("historial_ia", chatIA);
-
   // Mensaje inicial si está vacío
   if (chatIA.innerHTML.trim() === "") {
     addAI(chatIA, "🤖 Modo IA activado. Escribí tu pregunta.");
-    guardarHistorial("historial_ia", chatIA);
   }
+
+  // Cargar historial
+  cargarHistorial("historial_ia", chatIA);
+
+  // Guardar modo
+  sessionStorage.setItem("modoActual", modoActual);
 
   // NO hacemos focus
   document.activeElement.blur();
@@ -201,6 +193,9 @@ function irPanel(tipo) {
   if (tipo === "premium") panelPremium.classList.remove("hidden");
   if (tipo === "ads") panelAds.classList.remove("hidden");
   if (tipo === "config") panelConfig.classList.remove("hidden");
+
+  // Guardar modo
+  sessionStorage.setItem("modoActual", modoActual);
 
   // Quitar focus para que no abra teclado
   document.activeElement.blur();
@@ -238,21 +233,20 @@ async function responderDecidir(texto) {
     return;
   }
 
-  // Mensaje temporal que luego se reemplaza
-  const msgPensando = addAITemporal(chatDecidir, "🤔 Pensando...");
-
+  addAI(chatDecidir, "🤔 Pensando...");
   await sleep(600);
-  reemplazarMensaje(msgPensando, "3...");
+
+  addAI(chatDecidir, "3...");
   await sleep(400);
 
-  reemplazarMensaje(msgPensando, "2...");
+  addAI(chatDecidir, "2...");
   await sleep(400);
 
-  reemplazarMensaje(msgPensando, "1...");
+  addAI(chatDecidir, "1...");
   await sleep(400);
 
   const elegida = opciones[Math.floor(Math.random() * opciones.length)];
-  reemplazarMensaje(msgPensando, `✅ DecideFácil dice: ${elegida}`);
+  addAI(chatDecidir, `✅ DecideFácil dice: ${elegida}`);
 
   guardarHistorial("historial_decidir", chatDecidir);
 }
@@ -262,9 +256,7 @@ async function responderDecidir(texto) {
 ========================= */
 
 async function responderIA(texto) {
-  // Mensaje temporal que luego se reemplaza
-  const msgPensando = addAITemporal(chatIA, "🤖 Pensando...");
-
+  addAI(chatIA, "🤖 Pensando...");
   await sleep(700);
 
   const lower = texto.toLowerCase();
@@ -278,13 +270,11 @@ async function responderIA(texto) {
   if (lower.includes("ayuda"))
     respuesta = "Decime tu duda y te respondo claro y rápido 💪";
   if (lower.includes("gta 6"))
-    respuesta =
-      "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
+    respuesta = "GTA 6 va a estar brutal 🔥 ¿Querés que te diga requisitos o precio estimado?";
   if (lower.includes("ps5"))
     respuesta = "La PS5 es buenísima 😎 ¿Querés la normal o la Pro?";
 
-  // Reemplazamos el "Pensando..." por la respuesta final
-  reemplazarMensaje(msgPensando, respuesta);
+  addAI(chatIA, respuesta);
 
   guardarHistorial("historial_ia", chatIA);
 }
@@ -328,7 +318,6 @@ enviarDecidir.addEventListener("click", () => {
 
   responderDecidir(texto);
 
-  // Quitar focus para que no se quede el teclado pegado
   inputDecidir.blur();
 });
 
@@ -391,6 +380,23 @@ panelBackButtons.forEach((btn) => {
 });
 
 /* =========================
+   BOTÓN ATRÁS DEL CELULAR (ANDROID)
+   - Si estás en chat o panel -> vuelve a HOME
+   - Si estás en HOME -> ahí sí deja salir
+========================= */
+
+history.pushState(null, "", location.href);
+
+window.addEventListener("popstate", function () {
+  if (modoActual !== "home") {
+    irHome();
+
+    // Volver a bloquear el salir
+    history.pushState(null, "", location.href);
+  }
+});
+
+/* =========================
    INICIO
 ========================= */
 
@@ -399,6 +405,10 @@ window.addEventListener("load", () => {
   cargarHistorial("historial_decidir", chatDecidir);
   cargarHistorial("historial_ia", chatIA);
 
-  // Ir a home
-  irHome();
+  // Ver si había modo guardado
+  const modoGuardado = sessionStorage.getItem("modoActual");
+
+  if (modoGuardado === "decidir") irDecidir();
+  else if (modoGuardado === "ia") irIA();
+  else irHome();
 });
