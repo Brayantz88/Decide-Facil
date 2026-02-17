@@ -194,7 +194,8 @@ body {
   max-width: 600px;
 
   padding: 10px 12px;
-
+padding-bottom: 120px;
+   
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -270,7 +271,7 @@ body {
 .back-chat {
   position: fixed;
   left: 20px;
-  bottom: 90px;
+  bottom: 110px;
   padding: 10px 14px;
   border-radius: 12px;
   border: none;
