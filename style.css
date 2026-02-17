@@ -345,4 +345,27 @@ body {
   .chat-box {
     height: calc(100vh - 220px);
   }
+/* =========================
+   ANIMACIONES SUAVES
+========================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* Animación para pantallas */
+#screen-home,
+#screen-decidir,
+#screen-ia,
+#panel-premium,
+#panel-ads,
+#panel-config {
+  animation: fadeInUp 0.35s ease;
 }
