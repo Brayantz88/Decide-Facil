@@ -87,14 +87,14 @@ function mostrarTopSiHome() {
   }
 }
 
-// Guardar historial (localStorage)
+// Guardar historial (sessionStorage)
 function guardarHistorial(clave, chatBox) {
-  localStorage.setItem(clave, chatBox.innerHTML);
+  sessionStorage.setItem(clave, chatBox.innerHTML);
 }
 
-// Cargar historial (localStorage)
+// Cargar historial (sessionStorage)
 function cargarHistorial(clave, chatBox) {
-  const data = localStorage.getItem(clave);
+  const data =sessionStorage.getItem(clave);
   if (data) {
     chatBox.innerHTML = data;
     chatBox.scrollTop = chatBox.scrollHeight;
